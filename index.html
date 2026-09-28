@@ -1,0 +1,19 @@
+<!doctype html>
+<head>
+    <title>kenny app</title>
+    </head>
+    <body>
+        <h1>kenny app</h1>
+        <div id="users">chargement...</div>
+        <script>
+            fetch('https://kenny-backend-lx76.onrender.com/api/users')
+            .then(res => res.json())
+            .then(users => {
+                document.getElementbyld('users').innerHTML =users.map(u =>  '<p>${u.nom}</p>)'.join('')
+                })
+               .catch(err =>{
+                document.getElementbyld('users').innerHTML ='erreur de connexion';
+            }); 
+            </script>
+            </body>
+            </html>
