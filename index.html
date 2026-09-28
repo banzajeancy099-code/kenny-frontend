@@ -3,74 +3,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kenny App - Crée ton app</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Kenny App - Crée ton application</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 800px;
+      width: 100%;
+      padding: 40px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 120px;
+      transition: border-color 0.3s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      min-height: 100px;
+      display: none;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .result pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 Kenny App</h1>
+      <p>Décris ton application, l'IA la crée pour toi</p>
+    </div>
 
-  <div class="max-w-4xl mx-auto p-8">
-
-    <header class="text-center mb-12">
-      <h1 class="text-5xl font-bold mb-4">🚀 Kenny App</h1>
-      <p class="text-gray-400 text-xl">Décris ton app. L'IA la crée.</p>
-    </header>
-
-    <div class="bg-gray-800 rounded-lg p-6 mb-8">
-      <label class="block text-sm font-semibold mb-2">
-        Décris ton app
-      </label>
+    <div class="form-group">
+      <label for="description">Décris ton application :</label>
       <textarea 
-        id="prompt" 
-        rows="5"
-        class="w-full bg-gray-900 border border-gray-700 rounded-lg p-4 text-white focus:outline-none focus:border-blue-500"
-        placeholder="Ex: Crée une app de livraison avec paiement..."
+        id="description" 
+        placeholder="Exemple : Crée une app de livraison avec paiement et suivi GPS..."
       ></textarea>
-      
-      <button 
-        id="creer"
-        class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition">
-        ✨ Créer mon app
-      </button>
     </div>
 
-    <div id="resultat" class="bg-gray-800 rounded-lg p-6 hidden">
-      <h2 class="text-2xl font-bold mb-4">📦 Résultat</h2>
-      <pre id="output" class="bg-gray-900 p-4 rounded text-sm overflow-auto"></pre>
-    </div>
+    <button id="createBtn" onclick="creerApp()">
+      ✨ Créer mon application
+    </button>
 
+    <div class="status" id="status"></div>
+
+    <div class="result" id="result">
+      <h3>📦 Résultat :</h3>
+      <pre id="resultContent"></pre>
+    </div>
   </div>
 
   <script>
-    const bouton = document.getElementById('creer');
-    const prompt = document.getElementById('prompt');
-    const resultat = document.getElementById('resultat');
-    const output = document.getElementById('output');
+    async function creerApp() {
+      const description = document.getElementById('description').value.trim();
+      const btn = document.getElementById('createBtn');
+      const status = document.getElementById('status');
+      const result = document.getElementById('result');
+      const resultContent = document.getElementById('resultContent');
 
-    bouton.addEventListener('click', async () => {
-      const demande = prompt.value.trim();
-      
-      if (!demande) {
-        alert('Décris ton app d\'abord !');
+      if (!description) {
+        status.textContent = '⚠️ Décris ton application d\'abord';
         return;
       }
 
-      bouton.textContent = '⏳ Création en cours...';
-      bouton.disabled = true;
-      resultat.classList.remove('hidden');
-      output.textContent = 'Chargement...';
+      btn.disabled = true;
+      status.innerHTML = '<span class="loading"></span> L\'IA réfléchit...';
+      result.classList.remove('show');
 
       try {
+        // Pour l'instant, on appelle juste /api/users pour tester
         const response = await fetch('https://kenny-backend-lx76.onrender.com/api/users');
         const data = await response.json();
-        output.textContent = JSON.stringify(data, null, 2);
-      } catch (err) {
-        output.textContent = 'Erreur : ' + err.message;
+        
+        status.textContent = '✅ Connexion au backend réussie !';
+        result.classList.add('show');
+        resultContent.textContent = JSON.stringify(data, null, 2);
+        
+      } catch (error) {
+        status.textContent = '❌ Erreur : ' + error.message;
+      } finally {
+        btn.disabled = false;
       }
-
-      bouton.textContent = '✨ Créer mon app';
-      bouton.disabled = false;
-    });
+    }
   </script>
-
 </body>
 </html>
