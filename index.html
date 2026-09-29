@@ -47,7 +47,6 @@
       z-index: 0;
     }
 
-    /* HEADER */
     header {
       position: sticky;
       top: 0;
@@ -128,9 +127,7 @@
       transition: all 0.3s var(--transition);
     }
 
-    .avatar:hover {
-      border-color: var(--violet-300);
-    }
+    .avatar:hover { border-color: var(--violet-300); }
 
     .btn-new {
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
@@ -152,7 +149,6 @@
       box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
     }
 
-    /* MAIN - 3 COLONNES FIXES */
     .main {
       position: relative;
       z-index: 1;
@@ -173,11 +169,6 @@
       flex-direction: column;
       backdrop-filter: blur(20px);
       overflow: hidden;
-      transition: border-color 0.3s;
-    }
-
-    .panel:hover {
-      border-color: var(--bordure-hover);
     }
 
     .panel-header {
@@ -193,7 +184,6 @@
     .panel-title {
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--texte);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -277,6 +267,35 @@
       border-bottom-right-radius: 4px;
     }
 
+    /* Actions en cours */
+    .action-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--violet-500);
+      border-radius: 10px;
+      font-size: 0.75rem;
+      color: var(--violet-300);
+      margin-bottom: 8px;
+      animation: msgApparait 0.3s var(--transition);
+    }
+
+    .action-status .spinner {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      border-top-color: var(--violet-300);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     @keyframes typing {
       0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
       30% { transform: translateY(-6px); opacity: 1; }
@@ -304,10 +323,7 @@
     }
 
     .chat-input input::placeholder { color: var(--texte-faint); }
-
-    .chat-input input:focus {
-      border-color: var(--violet-500);
-    }
+    .chat-input input:focus { border-color: var(--violet-500); }
 
     .chat-input button {
       width: 42px;
@@ -323,13 +339,10 @@
       flex-shrink: 0;
     }
 
-    .chat-input button:disabled {
-      opacity: 0.5;
-    }
-
+    .chat-input button:disabled { opacity: 0.5; }
     .chat-input button svg { width: 18px; height: 18px; }
 
-    /* PREVIEW - BARRE DE NAVIGATEUR */
+    /* PREVIEW */
     .browser-bar {
       display: flex;
       align-items: center;
@@ -399,10 +412,7 @@
       margin-bottom: 15px;
     }
 
-    .preview-empty p {
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
+    .preview-empty p { font-size: 0.85rem; line-height: 1.5; }
 
     .preview-iframe {
       width: 100%;
@@ -415,21 +425,21 @@
     .preview-content.active .preview-empty { display: none; }
     .preview-content.active .preview-iframe { display: block; }
 
-    /* ÉDITEUR */
-    .editor-tabs {
+    /* ONGLETS DROITE */
+    .right-tabs {
       display: flex;
       gap: 4px;
-      overflow-x: auto;
+      margin-bottom: 10px;
       padding-bottom: 8px;
       border-bottom: 1px solid var(--bordure);
-      margin-bottom: 10px;
-      scrollbar-width: none;
       flex-shrink: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
 
-    .editor-tabs::-webkit-scrollbar { display: none; }
+    .right-tabs::-webkit-scrollbar { display: none; }
 
-    .tab {
+    .right-tab {
       padding: 6px 12px;
       background: rgba(6, 3, 13, 0.4);
       border: 1px solid transparent;
@@ -438,60 +448,113 @@
       color: var(--texte-dim);
       white-space: nowrap;
       cursor: pointer;
-      font-family: 'JetBrains Mono', monospace;
+      font-family: inherit;
+      transition: all 0.3s var(--transition);
     }
 
-    .tab.active {
+    .right-tab:hover {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--texte);
+    }
+
+    .right-tab.active {
       background: rgba(139, 92, 246, 0.15);
       border-color: var(--bordure-hover);
       color: var(--texte);
+    }
+
+    .tab-content {
+      flex: 1;
+      overflow: auto;
+      min-height: 0;
+      display: none;
+      scrollbar-width: thin;
+      scrollbar-color: var(--violet-700) transparent;
+    }
+
+    .tab-content.active { display: block; }
+
+    .tab-content::-webkit-scrollbar { width: 4px; height: 4px; }
+    .tab-content::-webkit-scrollbar-thumb {
+      background: var(--violet-700);
+      border-radius: 2px;
     }
 
     .code {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       line-height: 1.6;
-      overflow: auto;
       padding: 12px;
       background: rgba(6, 3, 13, 0.6);
       border-radius: 10px;
-      flex: 1;
-      min-height: 0;
-      scrollbar-width: thin;
-      scrollbar-color: var(--violet-700) transparent;
-    }
-
-    .code::-webkit-scrollbar { width: 5px; height: 5px; }
-    .code::-webkit-scrollbar-thumb {
-      background: var(--violet-700);
-      border-radius: 3px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
 
     .code-line {
       display: flex;
       gap: 12px;
-      white-space: nowrap;
+      white-space: pre;
     }
 
     .line-num {
       color: rgba(139, 92, 246, 0.35);
-      min-width: 18px;
+      min-width: 20px;
       text-align: right;
       user-select: none;
+      flex-shrink: 0;
     }
 
-    .kw { color: #c792ea; }
-    .str { color: #c3e88d; }
-    .fn { color: #82aaff; }
-    .com { color: #546e7a; font-style: italic; }
-    .tag { color: #f07178; }
-    .attr { color: #ffcb6b; }
+    .terminal {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      line-height: 1.7;
+      padding: 12px;
+      background: rgba(6, 3, 13, 0.8);
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      min-height: 100%;
+    }
+
+    .terminal-line { white-space: pre-wrap; word-wrap: break-word; }
+    .terminal-line.success { color: #27c93f; }
+    .terminal-line.info { color: #82aaff; }
+    .terminal-line.warn { color: #ffbd2e; }
+
+    .api-list {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .api-item {
+      padding: 10px 12px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      border-radius: 8px;
+      font-size: 0.75rem;
+      color: var(--texte-dim);
+    }
+
+    .api-item strong {
+      color: var(--violet-300);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
+    }
+
+    .empty-tab {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--texte-faint);
+      font-size: 0.8rem;
+    }
 
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="logo">
       <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
@@ -500,14 +563,10 @@
             <stop offset="0%" stop-color="#a78bfa"/>
             <stop offset="100%" stop-color="#6d28d9"/>
           </linearGradient>
-          <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#c4b5fd"/>
-            <stop offset="100%" stop-color="#8b5cf6"/>
-          </linearGradient>
         </defs>
         <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad1)"/>
         <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" 
-              stroke="url(#grad2)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         <circle cx="72" cy="28" r="5" fill="#fff" opacity="0.9"/>
       </svg>
       <span class="logo-text">Kenny</span>
@@ -526,7 +585,6 @@
     </div>
   </header>
 
-  <!-- 3 COLONNES -->
   <div class="main">
 
     <!-- GAUCHE : CHAT -->
@@ -581,45 +639,64 @@
             <line x1="8" y1="21" x2="16" y2="21"/>
             <line x1="12" y1="17" x2="12" y2="21"/>
           </svg>
-          <p>Ton app s'affichera ici<br>une fois générée</p>
+          <p>Ton app s'affichera ici<br>en temps réel</p>
         </div>
         <iframe class="preview-iframe" id="previewIframe" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
     </div>
 
-    <!-- DROITE : ÉDITEUR -->
+    <!-- DROITE : ONGLETS -->
     <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="16 18 22 12 16 6"/>
-            <polyline points="8 6 2 12 8 18"/>
-          </svg>
-          Code
+      <div class="right-tabs">
+        <button class="right-tab active" data-tab="code">Code</button>
+        <button class="right-tab" data-tab="terminal">Terminal</button>
+        <button class="right-tab" data-tab="api">API</button>
+        <button class="right-tab" data-tab="files">Fichiers</button>
+      </div>
+
+      <!-- CODE -->
+      <div class="tab-content active" id="tab-code">
+        <div class="empty-tab">
+          Le code apparaîtra ici<br>une fois généré
         </div>
       </div>
-      <div class="editor-tabs">
-        <div class="tab active">App.tsx</div>
-        <div class="tab">styles.css</div>
+
+      <!-- TERMINAL -->
+      <div class="tab-content" id="tab-terminal">
+        <div class="terminal" id="terminal">
+          <div class="terminal-line info">$ Kenny Terminal prêt</div>
+          <div class="terminal-line">En attente d'actions...</div>
+        </div>
       </div>
-      <div class="code">
-        <div class="code-line"><span class="line-num">1</span><span><span class="kw">import</span> React <span class="kw">from</span> <span class="str">'react'</span>;</span></div>
-        <div class="code-line"><span class="line-num">2</span><span><span class="kw">import</span> { View, Text } <span class="kw">from</span> <span class="str">'react-native'</span>;</span></div>
-        <div class="code-line"><span class="line-num">3</span><span></span></div>
-        <div class="code-line"><span class="line-num">4</span><span><span class="com">// Généré par Kenny IA</span></span></div>
-        <div class="code-line"><span class="line-num">5</span><span><span class="kw">export default function</span> <span class="fn">App</span>() {</span></div>
-        <div class="code-line"><span class="line-num">6</span><span>  <span class="kw">return</span> (</span></div>
-        <div class="code-line"><span class="line-num">7</span><span>    <span class="tag">&lt;View&gt;</span></span></div>
-        <div class="code-line"><span class="line-num">8</span><span>      <span class="tag">&lt;Text&gt;</span>Kenny App<span class="tag">&lt;/Text&gt;</span></span></div>
-        <div class="code-line"><span class="line-num">9</span><span>    <span class="tag">&lt;/View&gt;</span></span></div>
-        <div class="code-line"><span class="line-num">10</span><span>  );</span></div>
-        <div class="code-line"><span class="line-num">11</span><span>}</span></div>
+
+      <!-- API -->
+      <div class="tab-content" id="tab-api">
+        <div class="api-list">
+          <div class="api-item">
+            <strong>Gemini API</strong>
+            Modèle : gemini-3.5-flash-lite
+          </div>
+          <div class="api-item">
+            <strong>Backend</strong>
+            https://kenny-backend-lx76.onrender.com
+          </div>
+          <div class="api-item">
+            <strong>Status</strong>
+            ✅ Connecté
+          </div>
+        </div>
+      </div>
+
+      <!-- FICHIERS -->
+      <div class="tab-content" id="tab-files">
+        <div class="empty-tab">
+          Aucun fichier pour l'instant
+        </div>
       </div>
     </div>
 
   </div>
 
-  <!-- SCRIPT -->
   <script>
     const API_URL = 'https://kenny-backend-lx76.onrender.com';
     const chatMessages = document.getElementById('chatMessages');
@@ -628,8 +705,90 @@
     const previewContent = document.getElementById('previewContent');
     const previewIframe = document.getElementById('previewIframe');
     const browserUrl = document.getElementById('browserUrl');
+    const codeTab = document.getElementById('tab-code');
+    const terminal = document.getElementById('terminal');
     let isLoading = false;
     const conversationHistory = [];
+
+    // Gestion des onglets droite
+    document.querySelectorAll('.right-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.right-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Ajouter une ligne au terminal
+    function logTerminal(texte, type = '') {
+      const line = document.createElement('div');
+      line.className = 'terminal-line ' + type;
+      line.textContent = texte;
+      terminal.appendChild(line);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // Extraire les blocs de code
+    function extraireCode(text) {
+      const regex = /```(\w+)?\n([\s\S]*?)```/g;
+      const blocs = [];
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        blocs.push({
+          langage: match[1] || 'code',
+          contenu: match[2].trim()
+        });
+      }
+      return blocs;
+    }
+
+    // Retirer les blocs de code du texte
+    function retirerCode(text) {
+      return text.replace(/```[\s\S]*?```/g, '').trim();
+    }
+
+    // Afficher le code dans l'onglet Code
+    function afficherCode(blocs) {
+      if (!blocs || blocs.length === 0) return;
+      
+      const bloc = blocs[0];
+      const lignes = bloc.contenu.split('\n');
+      
+      codeTab.innerHTML = '<div class="code">' + 
+        lignes.map((ligne, i) => 
+          `<div class="code-line"><span class="line-num">${i + 1}</span><span>${escapeHtml(ligne)}</span></div>`
+        ).join('') + 
+      '</div>';
+      
+      logTerminal('→ Code généré (' + lignes.length + ' lignes)', 'success');
+    }
+
+    // Afficher dans le preview
+    function afficherPreview(html) {
+      previewIframe.srcdoc = html;
+      previewContent.classList.add('active');
+      browserUrl.textContent = 'kenny.app/preview';
+      logTerminal('→ Aperçu mis à jour', 'success');
+    }
+
+    // Indicateur d'action
+    function afficherAction(texte) {
+      const existing = document.getElementById('actionIndicator');
+      if (existing) existing.remove();
+      
+      const div = document.createElement('div');
+      div.id = 'actionIndicator';
+      div.className = 'action-status';
+      div.innerHTML = '<div class="spinner"></div><span>' + escapeHtml(texte) + '</span>';
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function retirerAction() {
+      const existing = document.getElementById('actionIndicator');
+      if (existing) existing.remove();
+    }
 
     async function envoyerMessage() {
       const message = chatInput.value.trim();
@@ -642,7 +801,8 @@
       ajouterMessage(message, 'user');
       conversationHistory.push({ role: 'user', content: message });
       
-      const typingId = afficherTyping();
+      afficherAction('Réflexion en cours...');
+      logTerminal('$ ' + message, 'info');
 
       try {
         const response = await fetch(`${API_URL}/api/chat`, {
@@ -656,33 +816,40 @@
         
         const data = await response.json();
         
-        document.getElementById(typingId)?.remove();
-        ajouterMessage(data.response || data.error || 'Pas de réponse', 'ia');
+        retirerAction();
         
-        if (data.response) {
-          conversationHistory.push({ role: 'model', content: data.response });
+        const blocs = extraireCode(data.response);
+        const texteChat = retirerCode(data.response);
+        
+        // Afficher le texte dans le chat
+        if (texteChat) {
+          ajouterMessage(texteChat, 'ia');
+          logTerminal('→ Réponse reçue', 'success');
+        }
+        
+        // Afficher le code dans l'onglet Code (invisible par défaut)
+        if (blocs.length > 0) {
+          afficherCode(blocs);
           
-          // Si la réponse contient du code HTML, l'afficher dans le preview
-          const codeMatch = data.response.match(/```html\n([\s\S]*?)```/);
-          if (codeMatch) {
-            afficherPreview(codeMatch[1]);
+          const htmlBloc = blocs.find(b => b.langage === 'html');
+          if (htmlBloc) {
+            afficherPreview(htmlBloc.contenu);
           }
         }
         
+        if (data.response) {
+          conversationHistory.push({ role: 'model', content: data.response });
+        }
+        
       } catch (error) {
-        document.getElementById(typingId)?.remove();
+        retirerAction();
         ajouterMessage('Erreur de connexion.', 'ia');
+        logTerminal('✗ Erreur de connexion', 'warn');
       }
 
       isLoading = false;
       chatSend.disabled = false;
       chatInput.focus();
-    }
-
-    function afficherPreview(html) {
-      previewIframe.srcdoc = html;
-      previewContent.classList.add('active');
-      browserUrl.textContent = 'kenny.app/preview';
     }
 
     function ajouterMessage(texte, type) {
@@ -697,24 +864,6 @@
       
       chatMessages.appendChild(msg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function afficherTyping() {
-      const id = 'typing-' + Date.now();
-      const msg = document.createElement('div');
-      msg.className = 'msg ia';
-      msg.id = id;
-      msg.innerHTML = `
-        <div class="msg-avatar ia">🤖</div>
-        <div class="msg-bubble" style="display:flex;gap:4px;align-items:center;">
-          <span style="width:6px;height:6px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite;"></span>
-          <span style="width:6px;height:6px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite 0.2s;"></span>
-          <span style="width:6px;height:6px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite 0.4s;"></span>
-        </div>
-      `;
-      chatMessages.appendChild(msg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      return id;
     }
 
     function escapeHtml(text) {
