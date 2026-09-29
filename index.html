@@ -3,124 +3,382 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kenny — Chat IA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Kenny — Crée ton app avec l'IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --violet-300: #c4b5fd;
+      --violet-400: #a78bfa;
       --violet-500: #8b5cf6;
       --violet-700: #6d28d9;
       --noir: #06030d;
+      --panel: rgba(26, 11, 46, 0.4);
       --bordure: rgba(139, 92, 246, 0.15);
+      --bordure-hover: rgba(139, 92, 246, 0.4);
       --texte: #ffffff;
       --texte-dim: rgba(255, 255, 255, 0.6);
       --texte-faint: rgba(255, 255, 255, 0.4);
       --transition: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--noir);
       color: var(--texte);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(109, 40, 217, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+      animation: fondPulse 10s ease-in-out infinite;
+    }
+
+    @keyframes fondPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
     }
 
     /* HEADER */
     header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
       padding: 16px 24px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: rgba(6, 3, 13, 0.8);
-      border-bottom: 1px solid var(--bordure);
+      justify-content: space-between;
+      background: rgba(6, 3, 13, 0.7);
       backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bordure);
+      animation: slideDown 0.6s var(--transition);
     }
 
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.3s var(--transition);
+    }
+
+    .logo:hover { transform: scale(1.03); }
+
     .logo-svg {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
     }
 
     .logo-text {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #fff, var(--violet-300));
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--violet-300) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .status-dot {
+    nav {
+      display: none;
+      gap: 4px;
+      align-items: center;
+    }
+
+    nav a {
+      position: relative;
+      color: var(--texte-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: all 0.3s var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--texte);
+      background: rgba(139, 92, 246, 0.1);
+    }
+
+    nav a.active { color: var(--violet-300); }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--violet-500), var(--violet-300));
+      border-radius: 2px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box {
+      display: none;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      padding: 8px 14px;
+      align-items: center;
+      gap: 8px;
+      width: 220px;
+      transition: all 0.3s var(--transition);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--violet-500);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+    }
+
+    .search-box svg { width: 16px; height: 16px; color: var(--texte-faint); flex-shrink: 0; }
+
+    .search-box input {
+      background: none;
+      border: none;
+      color: var(--texte);
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      width: 100%;
+    }
+
+    .search-box input::placeholder { color: var(--texte-faint); }
+
+    .icon-btn {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--texte-dim);
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+    }
+
+    .icon-btn:hover {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--texte);
+      border-color: var(--bordure-hover);
+      transform: translateY(-2px);
+    }
+
+    .icon-btn svg { width: 18px; height: 18px; }
+
+    .icon-btn .badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
       width: 8px;
       height: 8px;
+      background: #ff5f56;
       border-radius: 50%;
-      background: #27c93f;
-      margin-left: auto;
-      box-shadow: 0 0 10px #27c93f;
+      border: 2px solid var(--noir);
       animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 95, 86, 0.7); }
+      50% { box-shadow: 0 0 0 6px rgba(255, 95, 86, 0); }
     }
 
-    /* CHAT CONTAINER */
-    .chat-container {
-      flex: 1;
-      max-width: 900px;
-      width: 100%;
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s var(--transition);
+    }
+
+    .avatar:hover {
+      border-color: var(--violet-300);
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+    }
+
+    .btn-new {
+      position: relative;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.3s var(--transition);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      white-space: nowrap;
+    }
+
+    .btn-new:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+    }
+
+    .btn-new:active { transform: translateY(0) scale(0.98); }
+
+    /* RIPPLE */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      transform: scale(0);
+      animation: rippleAnim 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* MAIN */
+    .main {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 16px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 20px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--bordure);
+      border-radius: 16px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      height: calc(100vh - 70px);
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+      animation: fadeInUp 0.6s var(--transition) both;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
 
+    .panel:nth-child(1) { animation-delay: 0.1s; }
+    .panel:nth-child(2) { animation-delay: 0.2s; }
+    .panel:nth-child(3) { animation-delay: 0.3s; }
+
+    .panel:hover {
+      border-color: var(--bordure-hover);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.1);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--bordure);
+    }
+
+    .panel-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--texte);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-title svg { width: 16px; height: 16px; color: var(--violet-300); }
+
+    .panel-dots { display: flex; gap: 4px; }
+
+    .panel-dots span {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--texte-faint);
+    }
+
+    /* CHAT */
     .chat-messages {
       flex: 1;
-      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      padding-right: 8px;
+      gap: 14px;
+      overflow-y: auto;
+      max-height: 350px;
+      padding-right: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--violet-700) transparent;
     }
 
-    .chat-messages::-webkit-scrollbar { width: 6px; }
-    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
     .chat-messages::-webkit-scrollbar-thumb {
-      background: rgba(139, 92, 246, 0.3);
-      border-radius: 3px;
+      background: var(--violet-700);
+      border-radius: 2px;
     }
 
     .msg {
       display: flex;
-      gap: 12px;
-      animation: msgApparait 0.3s var(--transition);
+      gap: 10px;
+      align-items: flex-end;
+      animation: msgApparait 0.5s var(--transition) both;
+    }
+
+    @keyframes msgApparait {
+      from { opacity: 0; transform: translateY(10px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .msg.user { justify-content: flex-end; }
 
-    @keyframes msgApparait {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .msg-avatar {
-      width: 36px;
-      height: 36px;
+      width: 30px;
+      height: 30px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 1rem;
+      font-size: 0.85rem;
     }
 
     .msg-avatar.ia {
@@ -132,206 +390,841 @@
     .msg-avatar.user {
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
       color: white;
-      font-weight: 700;
     }
 
     .msg-bubble {
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 16px;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       line-height: 1.5;
       max-width: 75%;
       word-wrap: break-word;
     }
 
     .msg.ia .msg-bubble {
-      background: rgba(26, 11, 46, 0.6);
+      background: rgba(6, 3, 13, 0.5);
       border: 1px solid var(--bordure);
-      border-bottom-left-radius: 4px;
+      color: var(--texte);
+      border-bottom-left-radius: 6px;
     }
 
     .msg.user .msg-bubble {
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-      border-bottom-right-radius: 4px;
+      color: white;
+      border-bottom-right-radius: 6px;
       box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
     }
-
-    /* Typing indicator */
-    .typing {
-      display: flex;
-      gap: 4px;
-      padding: 16px 18px;
-    }
-
-    .typing span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--violet-300);
-      animation: typing 1.4s infinite;
-    }
-
-    .typing span:nth-child(2) { animation-delay: 0.2s; }
-    .typing span:nth-child(3) { animation-delay: 0.4s; }
 
     @keyframes typing {
       0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
       30% { transform: translateY(-8px); opacity: 1; }
     }
 
-    /* INPUT */
-    .chat-input-container {
+    .chat-input {
+      margin-top: 14px;
       display: flex;
       gap: 10px;
-      padding: 12px;
-      background: rgba(26, 11, 46, 0.5);
-      border: 1px solid var(--bordure);
-      border-radius: 16px;
-      backdrop-filter: blur(20px);
+      align-items: center;
     }
 
-    .chat-input-container input {
+    .chat-input input {
       flex: 1;
       padding: 12px 16px;
-      background: transparent;
-      border: none;
+      background: rgba(6, 3, 13, 0.6);
+      border: 1px solid var(--bordure);
+      border-radius: 12px;
       color: var(--texte);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-family: inherit;
       outline: none;
+      transition: all 0.3s var(--transition);
       min-width: 0;
     }
 
-    .chat-input-container input::placeholder { color: var(--texte-faint); }
+    .chat-input input::placeholder { color: var(--texte-faint); }
 
-    .chat-input-container button {
-      padding: 12px 24px;
+    .chat-input input:focus {
+      border-color: var(--violet-500);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+    }
+
+    .chat-input button {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
       border: none;
-      border-radius: 12px;
       color: white;
-      font-size: 0.9rem;
-      font-weight: 600;
-      font-family: inherit;
       cursor: pointer;
-      transition: all 0.3s var(--transition);
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      transition: all 0.3s var(--transition);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+      flex-shrink: 0;
     }
 
-    .chat-input-container button:hover {
+    .chat-input button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
     }
 
-    .chat-input-container button:disabled {
+    .chat-input button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
     }
 
-    .chat-input-container button svg {
-      width: 18px;
-      height: 18px;
+    .chat-input button svg { width: 18px; height: 18px; }
+
+    /* ÉDITEUR */
+    .editor-tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--bordure);
+      margin-bottom: 12px;
+      scrollbar-width: none;
     }
 
-    /* Welcome */
-    .welcome {
-      text-align: center;
-      padding: 40px 20px;
+    .editor-tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      padding: 8px 14px;
+      background: rgba(6, 3, 13, 0.4);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-size: 0.75rem;
       color: var(--texte-dim);
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.3s var(--transition);
     }
 
-    .welcome h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #fff, var(--violet-300));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .tab:hover {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--texte);
     }
 
-    .welcome p {
-      font-size: 0.9rem;
+    .tab.active {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: var(--bordure-hover);
+      color: var(--texte);
+    }
+
+    .code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      line-height: 1.7;
+      overflow: auto;
+      padding: 14px;
+      background: rgba(6, 3, 13, 0.6);
+      border-radius: 12px;
+      max-height: 350px;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 16px;
+      white-space: nowrap;
+    }
+
+    .line-num {
+      color: rgba(139, 92, 246, 0.35);
+      min-width: 22px;
+      text-align: right;
+      user-select: none;
+    }
+
+    .kw { color: #c792ea; }
+    .str { color: #c3e88d; }
+    .fn { color: #82aaff; }
+    .com { color: #546e7a; font-style: italic; }
+    .tag { color: #f07178; }
+    .attr { color: #ffcb6b; }
+
+    /* CONSOLE */
+    .console {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      line-height: 1.8;
+      overflow: auto;
+      padding: 14px;
+      background: rgba(6, 3, 13, 0.8);
+      border-radius: 12px;
+      max-height: 180px;
+      flex: 1;
+    }
+
+    .console-line {
+      color: var(--texte-dim);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .console-line.success { color: #27c93f; }
+    .console-line.info { color: #82aaff; }
+
+    .progress {
+      display: inline-block;
+      width: 80px;
+      height: 6px;
+      background: rgba(139, 92, 246, 0.15);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-left: auto;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #27c93f, #5effa0);
+      border-radius: 3px;
+    }
+
+    /* PREVIEW */
+    .preview-panel {
+      margin-top: 12px;
+      background: rgba(6, 3, 13, 0.4);
+      border: 1px solid var(--bordure);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .phone-mockup {
+      width: 140px;
+      height: 280px;
+      margin: 12px auto;
+      border-radius: 24px;
+      background: rgba(6, 3, 13, 0.9);
+      border: 2px solid var(--violet-500);
+      box-shadow: 
+        0 0 40px rgba(139, 92, 246, 0.4),
+        inset 0 0 30px rgba(139, 92, 246, 0.1);
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .phone-notch {
+      width: 50px;
+      height: 5px;
+      background: rgba(139, 92, 246, 0.4);
+      border-radius: 3px;
+      margin: 0 auto 10px;
+    }
+
+    .phone-line {
+      height: 6px;
+      background: rgba(139, 92, 246, 0.2);
+      border-radius: 3px;
+    }
+
+    .phone-line.long { width: 100%; }
+    .phone-line.medium { width: 70%; }
+    .phone-line.short { width: 45%; }
+
+    .phone-block {
+      height: 45px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(109, 40, 217, 0.15));
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+
+    /* ACTIONS */
+    .actions {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 16px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .action-btn {
+      position: relative;
+      padding: 14px 20px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--bordure);
+      border-radius: 12px;
+      color: var(--texte);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      overflow: hidden;
+      transition: all 0.3s var(--transition);
+    }
+
+    .action-btn:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--bordure-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      border-color: transparent;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .action-btn.primary:hover {
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+    }
+
+    .action-btn svg { width: 16px; height: 16px; }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 40px 24px 30px;
+      background: rgba(6, 3, 13, 0.8);
+      border-top: 1px solid var(--bordure);
+      margin-top: 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-brand .logo-svg { width: 38px; height: 38px; }
+
+    .footer-brand p {
+      color: var(--texte-dim);
+      font-size: 0.85rem;
       line-height: 1.6;
+      max-width: 300px;
     }
 
+    .footer-socials { display: flex; gap: 10px; }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--texte-dim);
+      text-decoration: none;
+      transition: all 0.3s var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--violet-500);
+      color: white;
+      border-color: var(--violet-500);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .social-btn svg { width: 18px; height: 18px; }
+
+    .footer-col h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--texte);
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      color: var(--texte-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s var(--transition);
+    }
+
+    .footer-col a:hover { color: var(--violet-300); }
+
+    .newsletter { display: flex; gap: 8px; margin-top: 10px; }
+
+    .newsletter input {
+      flex: 1;
+      padding: 10px 14px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      color: var(--texte);
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      min-width: 0;
+    }
+
+    .newsletter input::placeholder { color: var(--texte-faint); }
+
+    .newsletter button {
+      padding: 10px 16px;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--transition);
+    }
+
+    .newsletter button svg { width: 16px; height: 16px; }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--bordure);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      color: var(--texte-faint);
+      font-size: 0.8rem;
+    }
+
+    .footer-bottom .links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-bottom a {
+      color: var(--texte-faint);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    /* TABLETTE */
+    @media (min-width: 768px) {
+      header { padding: 18px 40px; }
+      nav { display: flex; }
+      .search-box { display: flex; }
+
+      .main {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .panel:nth-child(3) { grid-column: span 2; }
+
+      .actions {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 20px;
+      }
+
+      .footer-top {
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 40px;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    /* DESKTOP */
+    @media (min-width: 1200px) {
+      header { padding: 20px 60px; }
+      .search-box { width: 280px; }
+      .logo-text { font-size: 1.5rem; }
+
+      .main {
+        grid-template-columns: 340px 1fr 340px;
+        gap: 20px;
+        padding: 24px;
+      }
+
+      .panel:nth-child(3) { grid-column: auto; }
+      .panel { padding: 20px; }
+      .panel-title { font-size: 0.95rem; }
+
+      .chat-messages { max-height: 420px; }
+      .code { font-size: 0.75rem; max-height: 420px; }
+      .console { font-size: 0.75rem; max-height: 200px; }
+      .msg-bubble { font-size: 0.85rem; }
+
+      .actions { padding: 24px; gap: 14px; }
+      .action-btn { padding: 16px 24px; font-size: 0.9rem; }
+
+      footer { padding: 60px 60px 30px; }
+    }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
   <header>
-    <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
-      <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#a78bfa"/>
-          <stop offset="100%" stop-color="#6d28d9"/>
-        </linearGradient>
-        <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#c4b5fd"/>
-          <stop offset="100%" stop-color="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-      <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad1)"/>
-      <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" 
-            stroke="url(#grad2)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    </svg>
-    <span class="logo-text">Kenny</span>
-    <div class="status-dot"></div>
+    <div class="logo">
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a78bfa"/>
+            <stop offset="100%" stop-color="#6d28d9"/>
+          </linearGradient>
+          <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#c4b5fd"/>
+            <stop offset="100%" stop-color="#8b5cf6"/>
+          </linearGradient>
+        </defs>
+        <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad1)"/>
+        <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" 
+              stroke="url(#grad2)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="72" cy="28" r="5" fill="#fff" opacity="0.9"/>
+      </svg>
+      <span class="logo-text">Kenny</span>
+    </div>
+
+    <nav>
+      <a href="#" class="active">Accueil</a>
+      <a href="#">Créer</a>
+      <a href="#">Mes apps</a>
+      <a href="#">Prix</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Rechercher...">
+      </div>
+
+      <div class="icon-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+        </svg>
+        <span class="badge"></span>
+      </div>
+
+      <div class="avatar">K</div>
+
+      <button class="btn-new">+ Nouveau projet</button>
+    </div>
   </header>
 
-  <!-- CHAT -->
-  <div class="chat-container">
-    <div class="chat-messages" id="messages">
-      <div class="welcome">
-        <h2>👋 Bienvenue sur Kenny</h2>
-        <p>Décris-moi l'application que tu veux créer et je m'occupe de tout.</p>
+  <!-- 3 COLONNES -->
+  <div class="main">
+
+    <!-- CHAT IA FONCTIONNEL -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Assistant IA
+        </div>
+        <div class="panel-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg ia">
+          <div class="msg-avatar ia">🤖</div>
+          <div class="msg-bubble">Bonjour ! Décris-moi l'application que tu veux créer.</div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Décris ton app..." autocomplete="off">
+        <button id="chatSend">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m22 2-7 20-4-9-9-4Z"/>
+            <path d="M22 2 11 13"/>
+          </svg>
+        </button>
       </div>
     </div>
 
-    <div class="chat-input-container">
-      <input 
-        type="text" 
-        id="messageInput" 
-        placeholder="Décris ton app..."
-        autocomplete="off"
-      >
-      <button id="sendBtn">
-        Envoyer
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="m22 2-7 20-4-9-9-4Z"/>
-          <path d="M22 2 11 13"/>
-        </svg>
-      </button>
+    <!-- ÉDITEUR -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          Éditeur de code
+        </div>
+        <div class="panel-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="editor-tabs">
+        <div class="tab active">App.tsx</div>
+        <div class="tab">styles.css</div>
+        <div class="tab">server.js</div>
+      </div>
+      <div class="code">
+        <div class="code-line"><span class="line-num">1</span><span><span class="kw">import</span> React <span class="kw">from</span> <span class="str">'react'</span>;</span></div>
+        <div class="code-line"><span class="line-num">2</span><span><span class="kw">import</span> { View, Text } <span class="kw">from</span> <span class="str">'react-native'</span>;</span></div>
+        <div class="code-line"><span class="line-num">3</span><span></span></div>
+        <div class="code-line"><span class="line-num">4</span><span><span class="com">// App de livraison générée par Kenny IA</span></span></div>
+        <div class="code-line"><span class="line-num">5</span><span><span class="kw">export default function</span> <span class="fn">App</span>() {</span></div>
+        <div class="code-line"><span class="line-num">6</span><span>  <span class="kw">const</span> [orders, setOrders] = <span class="fn">useState</span>([]);</span></div>
+        <div class="code-line"><span class="line-num">7</span><span>  <span class="kw">const</span> [location, setLocation] = <span class="fn">useState</span>(<span class="kw">null</span>);</span></div>
+        <div class="code-line"><span class="line-num">8</span><span></span></div>
+        <div class="code-line"><span class="line-num">9</span><span>  <span class="kw">return</span> (</span></div>
+        <div class="code-line"><span class="line-num">10</span><span>    <span class="tag">&lt;View</span> <span class="attr">style</span>=<span class="str">{styles.container}</span><span class="tag">&gt;</span></span></div>
+        <div class="code-line"><span class="line-num">11</span><span>      <span class="tag">&lt;Text&gt;</span>Kenny Delivery<span class="tag">&lt;/Text&gt;</span></span></div>
+        <div class="code-line"><span class="line-num">12</span><span>      <span class="tag">&lt;MapView</span> <span class="attr">location</span>=<span class="str">{location}</span> <span class="tag">/&gt;</span></span></div>
+        <div class="code-line"><span class="line-num">13</span><span>      <span class="tag">&lt;OrderList</span> <span class="attr">data</span>=<span class="str">{orders}</span> <span class="tag">/&gt;</span></span></div>
+        <div class="code-line"><span class="line-num">14</span><span>    <span class="tag">&lt;/View&gt;</span></span></div>
+        <div class="code-line"><span class="line-num">15</span><span>  );</span></div>
+        <div class="code-line"><span class="line-num">16</span><span>}</span></div>
+      </div>
     </div>
+
+    <!-- CONSOLE + PREVIEW -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          Console
+        </div>
+        <div class="panel-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="console">
+        <div class="console-line success">✓ Initializing project...</div>
+        <div class="console-line success">✓ Installing dependencies...</div>
+        <div class="console-line success">✓ Generating components
+          <span class="progress"><span class="progress-bar" style="width: 100%"></span></span>
+        </div>
+        <div class="console-line success">✓ Building frontend
+          <span class="progress"><span class="progress-bar" style="width: 100%"></span></span>
+        </div>
+        <div class="console-line success">✓ Building backend
+          <span class="progress"><span class="progress-bar" style="width: 100%"></span></span>
+        </div>
+        <div class="console-line info">→ Testing security...</div>
+        <div class="console-line success">✓ All tests passed</div>
+        <div class="console-line success">✓ Ready to deploy! 🚀</div>
+      </div>
+
+      <div class="preview-panel">
+        <div class="panel-title" style="margin-bottom: 12px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+          Aperçu
+        </div>
+        <div class="phone-mockup">
+          <div class="phone-notch"></div>
+          <div class="phone-line long"></div>
+          <div class="phone-line short"></div>
+          <div class="phone-block"></div>
+          <div class="phone-line medium"></div>
+          <div class="phone-line long"></div>
+          <div class="phone-line short"></div>
+          <div class="phone-block" style="height: 35px;"></div>
+          <div class="phone-line medium"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
+  <!-- ACTIONS -->
+  <div class="actions">
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+        <polyline points="17 21 17 13 7 13 7 21"/>
+        <polyline points="7 3 7 8 15 8"/>
+      </svg>
+      Sauvegarder
+    </button>
+    <button class="action-btn primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+      </svg>
+      Déployer
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 11l3 3L22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+      Tester
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+      </svg>
+      Partager
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">
+            <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
+              <defs>
+                <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#a78bfa"/>
+                  <stop offset="100%" stop-color="#6d28d9"/>
+                </linearGradient>
+              </defs>
+              <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad3)"/>
+              <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" 
+                    stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span class="logo-text">Kenny</span>
+          </div>
+          <p>Crée ton application avec l'IA en quelques minutes. Sans code. Sans limite.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="social-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Produit</h4>
+          <ul>
+            <li><a href="#">Fonctionnalités</a></li>
+            <li><a href="#">Templates</a></li>
+            <li><a href="#">Intégrations</a></li>
+            <li><a href="#">Prix</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ressources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Tutoriels</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Newsletter</h4>
+          <p style="color: var(--texte-dim); font-size: 0.85rem; line-height: 1.6; margin-bottom: 10px;">
+            Reçois les nouveautés chaque semaine.
+          </p>
+          <div class="newsletter">
+            <input type="email" placeholder="ton@email.com">
+            <button>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Kenny App. Tous droits réservés.</p>
+        <div class="links">
+          <a href="#">Mentions légales</a>
+          <a href="#">CGU</a>
+          <a href="#">Confidentialité</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
   <script>
     const API_URL = 'https://kenny-backend-lx76.onrender.com';
-    const messagesEl = document.getElementById('messages');
-    const inputEl = document.getElementById('messageInput');
-    const sendBtn = document.getElementById('sendBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
     let isLoading = false;
 
-    // Envoyer un message
     async function envoyerMessage() {
-      const message = inputEl.value.trim();
+      const message = chatInput.value.trim();
       if (!message || isLoading) return;
 
       isLoading = true;
-      inputEl.value = '';
-      sendBtn.disabled = true;
+      chatInput.value = '';
+      chatSend.disabled = true;
 
-      // Masquer le welcome
-      const welcome = document.querySelector('.welcome');
-      if (welcome) welcome.remove();
-
-      // Afficher le message utilisateur
       ajouterMessage(message, 'user');
-
-      // Afficher l'indicateur de frappe
       const typingId = afficherTyping();
 
       try {
@@ -340,30 +1233,25 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message })
         });
-
+        
         const data = await response.json();
         
-        // Retirer le typing
-        document.getElementById(typingId).remove();
-
-        // Afficher la réponse
-        ajouterMessage(data.response, 'ia');
-
+        document.getElementById(typingId)?.remove();
+        ajouterMessage(data.response || data.error || 'Pas de réponse', 'ia');
+        
       } catch (error) {
         document.getElementById(typingId)?.remove();
-        ajouterMessage('❌ Erreur de connexion. Le serveur se réveille peut-être... Réessaie dans 30 secondes.', 'ia');
+        ajouterMessage('❌ Erreur de connexion. Le serveur se réveille peut-être. Réessaie dans 30 secondes.', 'ia');
       }
 
       isLoading = false;
-      sendBtn.disabled = false;
-      inputEl.focus();
+      chatSend.disabled = false;
+      chatInput.focus();
     }
 
-    // Ajouter un message
     function ajouterMessage(texte, type) {
       const msg = document.createElement('div');
       msg.className = `msg ${type}`;
-      
       const avatar = type === 'ia' ? '🤖' : 'K';
       
       msg.innerHTML = `
@@ -371,11 +1259,10 @@
         <div class="msg-bubble">${escapeHtml(texte)}</div>
       `;
       
-      messagesEl.appendChild(msg);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    // Indicateur de frappe
     function afficherTyping() {
       const id = 'typing-' + Date.now();
       const msg = document.createElement('div');
@@ -383,26 +1270,41 @@
       msg.id = id;
       msg.innerHTML = `
         <div class="msg-avatar ia">🤖</div>
-        <div class="msg-bubble typing">
-          <span></span><span></span><span></span>
+        <div class="msg-bubble" style="display:flex;gap:4px;align-items:center;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite;"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite 0.2s;"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite 0.4s;"></span>
         </div>
       `;
-      messagesEl.appendChild(msg);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
       return id;
     }
 
-    // Sécurité XSS
     function escapeHtml(text) {
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
     }
 
-    // Event listeners
-    sendBtn.addEventListener('click', envoyerMessage);
-    inputEl.addEventListener('keypress', (e) => {
+    chatSend.addEventListener('click', envoyerMessage);
+    chatInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') envoyerMessage();
+    });
+
+    // Ripple effect
+    document.querySelectorAll('button, .action-btn, .social-btn, .icon-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
     });
   </script>
 
