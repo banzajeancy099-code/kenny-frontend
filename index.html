@@ -4,15 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1200, user-scalable=yes">
   <title>Kenny — Crée ton app avec l'IA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --violet-300: #c4b5fd;
-      --violet-400: #a78bfa;
       --violet-500: #8b5cf6;
       --violet-700: #6d28d9;
       --noir: #06030d;
@@ -32,7 +29,7 @@
       overflow-y: hidden;
       background: var(--noir);
       color: var(--texte);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -47,6 +44,7 @@
       z-index: 0;
     }
 
+    /* ===== HEADER ===== */
     header {
       position: sticky;
       top: 0;
@@ -112,7 +110,55 @@
       gap: 10px;
     }
 
-    .avatar {
+    .btn-login {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--texte);
+      border: 1px solid var(--bordure);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+    }
+
+    .btn-login:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--violet-500);
+    }
+
+    .btn-register {
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      transition: all 0.3s var(--transition);
+    }
+
+    .btn-register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+    }
+
+    .user-info {
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-info.active { display: flex; }
+
+    .user-email {
+      color: var(--texte-dim);
+      font-size: 0.85rem;
+    }
+
+    .user-avatar {
       width: 40px;
       height: 40px;
       border-radius: 10px;
@@ -123,32 +169,24 @@
       font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.3s var(--transition);
     }
 
-    .avatar:hover { border-color: var(--violet-300); }
-
-    .btn-new {
-      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      font-family: inherit;
+    .btn-logout {
+      background: rgba(255, 95, 86, 0.1);
+      border: 1px solid rgba(255, 95, 86, 0.3);
+      color: #ff5f56;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-      white-space: nowrap;
-      transition: all 0.3s var(--transition);
+      font-weight: 600;
     }
 
-    .btn-new:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+    .btn-logout:hover {
+      background: rgba(255, 95, 86, 0.2);
     }
 
+    /* ===== MAIN ===== */
     .main {
       position: relative;
       z-index: 1;
@@ -187,7 +225,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      white-space: nowrap;
     }
 
     .panel-title svg { width: 16px; height: 16px; color: var(--violet-300); }
@@ -201,14 +238,6 @@
       overflow-y: auto;
       padding-right: 5px;
       min-height: 0;
-      scrollbar-width: thin;
-      scrollbar-color: var(--violet-700) transparent;
-    }
-
-    .chat-messages::-webkit-scrollbar { width: 4px; }
-    .chat-messages::-webkit-scrollbar-thumb {
-      background: var(--violet-700);
-      border-radius: 2px;
     }
 
     .msg {
@@ -267,40 +296,6 @@
       border-bottom-right-radius: 4px;
     }
 
-    /* Actions en cours */
-    .action-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid var(--violet-500);
-      border-radius: 10px;
-      font-size: 0.75rem;
-      color: var(--violet-300);
-      margin-bottom: 8px;
-      animation: msgApparait 0.3s var(--transition);
-    }
-
-    .action-status .spinner {
-      width: 12px;
-      height: 12px;
-      border: 2px solid rgba(139, 92, 246, 0.3);
-      border-top-color: var(--violet-300);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-      30% { transform: translateY(-6px); opacity: 1; }
-    }
-
     .chat-input {
       margin-top: 12px;
       display: flex;
@@ -355,18 +350,8 @@
       flex-shrink: 0;
     }
 
-    .browser-dots {
-      display: flex;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    .browser-dots span {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
     .browser-dots span:nth-child(1) { background: #ff5f56; }
     .browser-dots span:nth-child(2) { background: #ffbd2e; }
     .browser-dots span:nth-child(3) { background: #27c93f; }
@@ -379,9 +364,6 @@
       font-size: 0.75rem;
       color: var(--texte-faint);
       font-family: 'JetBrains Mono', monospace;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       text-align: center;
     }
 
@@ -394,7 +376,6 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      position: relative;
       min-height: 0;
     }
 
@@ -412,7 +393,7 @@
       margin-bottom: 15px;
     }
 
-    .preview-empty p { font-size: 0.85rem; line-height: 1.5; }
+    .preview-empty p { font-size: 0.85rem; }
 
     .preview-iframe {
       width: 100%;
@@ -433,11 +414,7 @@
       padding-bottom: 8px;
       border-bottom: 1px solid var(--bordure);
       flex-shrink: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
     }
-
-    .right-tabs::-webkit-scrollbar { display: none; }
 
     .right-tab {
       padding: 6px 12px;
@@ -449,12 +426,6 @@
       white-space: nowrap;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.3s var(--transition);
-    }
-
-    .right-tab:hover {
-      background: rgba(139, 92, 246, 0.1);
-      color: var(--texte);
     }
 
     .right-tab.active {
@@ -468,17 +439,9 @@
       overflow: auto;
       min-height: 0;
       display: none;
-      scrollbar-width: thin;
-      scrollbar-color: var(--violet-700) transparent;
     }
 
     .tab-content.active { display: block; }
-
-    .tab-content::-webkit-scrollbar { width: 4px; height: 4px; }
-    .tab-content::-webkit-scrollbar-thumb {
-      background: var(--violet-700);
-      border-radius: 2px;
-    }
 
     .code {
       font-family: 'JetBrains Mono', monospace;
@@ -516,33 +479,9 @@
       min-height: 100%;
     }
 
-    .terminal-line { white-space: pre-wrap; word-wrap: break-word; }
     .terminal-line.success { color: #27c93f; }
     .terminal-line.info { color: #82aaff; }
     .terminal-line.warn { color: #ffbd2e; }
-
-    .api-list {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .api-item {
-      padding: 10px 12px;
-      background: rgba(139, 92, 246, 0.08);
-      border: 1px solid var(--bordure);
-      border-radius: 8px;
-      font-size: 0.75rem;
-      color: var(--texte-dim);
-    }
-
-    .api-item strong {
-      color: var(--violet-300);
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.8rem;
-    }
 
     .empty-tab {
       text-align: center;
@@ -551,10 +490,199 @@
       font-size: 0.8rem;
     }
 
+    /* ===== MODALE AUTH ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: rgba(20, 8, 35, 0.95);
+      border: 1px solid var(--bordure-hover);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 450px;
+      width: 100%;
+      animation: modalApparait 0.3s var(--transition);
+      position: relative;
+      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+    }
+
+    @keyframes modalApparait {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--bordure);
+      color: var(--texte-dim);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 95, 86, 0.2);
+      color: #ff5f56;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #fff, var(--violet-300));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .modal-subtitle {
+      color: var(--texte-dim);
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--texte-dim);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(6, 3, 13, 0.6);
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      color: var(--texte);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.3s var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--violet-500);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+    }
+
+    .form-input.error {
+      border-color: #ff5f56;
+    }
+
+    .form-input.success {
+      border-color: #27c93f;
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--texte-faint);
+      margin-top: 6px;
+    }
+
+    .form-hint.error { color: #ff5f56; }
+    .form-hint.success { color: #27c93f; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      transition: all 0.3s var(--transition);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .modal-switch {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--texte-dim);
+      font-size: 0.85rem;
+    }
+
+    .modal-switch button {
+      background: none;
+      border: none;
+      color: var(--violet-300);
+      cursor: pointer;
+      font-weight: 600;
+      font-family: inherit;
+      font-size: 0.85rem;
+      text-decoration: underline;
+    }
+
+    .modal-error {
+      padding: 12px;
+      background: rgba(255, 95, 86, 0.1);
+      border: 1px solid rgba(255, 95, 86, 0.3);
+      border-radius: 10px;
+      color: #ff5f56;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .modal-error.active { display: block; }
+
+    .modal-success {
+      padding: 12px;
+      background: rgba(39, 201, 63, 0.1);
+      border: 1px solid rgba(39, 201, 63, 0.3);
+      border-radius: 10px;
+      color: #27c93f;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .modal-success.active { display: block; }
+
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
     <div class="logo">
       <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
@@ -580,14 +708,23 @@
     </nav>
 
     <div class="header-right">
-      <div class="avatar">K</div>
-      <button class="btn-new">+ Nouveau</button>
+      <!-- Non connecté -->
+      <div id="guestButtons">
+        <button class="btn-login" onclick="ouvrirModale('login')">Connexion</button>
+        <button class="btn-register" onclick="ouvrirModale('register')">S'inscrire</button>
+      </div>
+      <!-- Connecté -->
+      <div class="user-info" id="userInfo">
+        <span class="user-email" id="userEmail">email@exemple.com</span>
+        <div class="user-avatar" id="userAvatar">K</div>
+        <button class="btn-logout" onclick="deconnexion()">Déconnexion</button>
+      </div>
     </div>
   </header>
 
+  <!-- MAIN -->
   <div class="main">
 
-    <!-- GAUCHE : CHAT -->
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
@@ -614,7 +751,6 @@
       </div>
     </div>
 
-    <!-- CENTRE : PREVIEW -->
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
@@ -645,56 +781,100 @@
       </div>
     </div>
 
-    <!-- DROITE : ONGLETS -->
     <div class="panel">
       <div class="right-tabs">
         <button class="right-tab active" data-tab="code">Code</button>
         <button class="right-tab" data-tab="terminal">Terminal</button>
         <button class="right-tab" data-tab="api">API</button>
-        <button class="right-tab" data-tab="files">Fichiers</button>
       </div>
 
-      <!-- CODE -->
       <div class="tab-content active" id="tab-code">
-        <div class="empty-tab">
-          Le code apparaîtra ici<br>une fois généré
-        </div>
+        <div class="empty-tab">Le code apparaîtra ici</div>
       </div>
 
-      <!-- TERMINAL -->
       <div class="tab-content" id="tab-terminal">
         <div class="terminal" id="terminal">
           <div class="terminal-line info">$ Kenny Terminal prêt</div>
-          <div class="terminal-line">En attente d'actions...</div>
         </div>
       </div>
 
-      <!-- API -->
       <div class="tab-content" id="tab-api">
-        <div class="api-list">
-          <div class="api-item">
-            <strong>Gemini API</strong>
-            Modèle : gemini-3.5-flash-lite
-          </div>
-          <div class="api-item">
-            <strong>Backend</strong>
-            https://kenny-backend-lx76.onrender.com
-          </div>
-          <div class="api-item">
-            <strong>Status</strong>
-            ✅ Connecté
-          </div>
-        </div>
-      </div>
-
-      <!-- FICHIERS -->
-      <div class="tab-content" id="tab-files">
-        <div class="empty-tab">
-          Aucun fichier pour l'instant
+        <div class="terminal">
+          <div class="terminal-line info">Gemini API : ✅ Configuré</div>
+          <div class="terminal-line info">Backend : ✅ Connecté</div>
+          <div class="terminal-line success" id="apiSupabase">Supabase : ⏳ Vérification...</div>
         </div>
       </div>
     </div>
 
+  </div>
+
+  <!-- MODALE AUTH -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal-close" onclick="fermerModale()">✕</button>
+      
+      <!-- Étape 1 : Inscription -->
+      <div id="registerStep">
+        <h2 class="modal-title">Créer un compte</h2>
+        <p class="modal-subtitle">Rejoins Kenny et crée tes apps en quelques minutes.</p>
+        
+        <div class="modal-error" id="registerError"></div>
+        <div class="modal-success" id="registerSuccess"></div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="regEmail" placeholder="ton@email.com">
+          <div class="form-hint" id="regEmailHint"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe</label>
+          <input type="password" class="form-input" id="regPassword" placeholder="••••••••">
+          <div class="form-hint" id="regPasswordHint">Minimum 6 caractères</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirmer le mot de passe</label>
+          <input type="password" class="form-input" id="regConfirm" placeholder="••••••••">
+          <div class="form-hint" id="regConfirmHint"></div>
+        </div>
+
+        <button class="btn-submit" id="btnRegister" onclick="inscription()">
+          Créer mon compte
+        </button>
+
+        <div class="modal-switch">
+          Déjà un compte ? <button onclick="ouvrirModale('login')">Se connecter</button>
+        </div>
+      </div>
+
+      <!-- Étape 2 : Connexion -->
+      <div id="loginStep" style="display: none;">
+        <h2 class="modal-title">Connexion</h2>
+        <p class="modal-subtitle">Content de te revoir !</p>
+        
+        <div class="modal-error" id="loginError"></div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="logEmail" placeholder="ton@email.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe</label>
+          <input type="password" class="form-input" id="logPassword" placeholder="••••••••">
+        </div>
+
+        <button class="btn-submit" id="btnLogin" onclick="connexion()">
+          Se connecter
+        </button>
+
+        <div class="modal-switch">
+          Pas de compte ? <button onclick="ouvrirModale('register')">S'inscrire</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -707,10 +887,215 @@
     const browserUrl = document.getElementById('browserUrl');
     const codeTab = document.getElementById('tab-code');
     const terminal = document.getElementById('terminal');
+    const modalOverlay = document.getElementById('modalOverlay');
     let isLoading = false;
     const conversationHistory = [];
 
-    // Gestion des onglets droite
+    // ===== AUTH =====
+    function ouvrirModale(type) {
+      modalOverlay.classList.add('active');
+      if (type === 'login') {
+        document.getElementById('registerStep').style.display = 'none';
+        document.getElementById('loginStep').style.display = 'block';
+      } else {
+        document.getElementById('registerStep').style.display = 'block';
+        document.getElementById('loginStep').style.display = 'none';
+      }
+    }
+
+    function fermerModale() {
+      modalOverlay.classList.remove('active');
+      document.getElementById('registerError').classList.remove('active');
+      document.getElementById('loginError').classList.remove('active');
+    }
+
+    // Validation email en temps réel
+    document.getElementById('regEmail').addEventListener('input', (e) => {
+      const val = e.target.value;
+      const hint = document.getElementById('regEmailHint');
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!val) {
+        hint.textContent = '';
+        hint.className = 'form-hint';
+        e.target.classList.remove('error', 'success');
+      } else if (regex.test(val)) {
+        hint.textContent = '✓ Email valide';
+        hint.className = 'form-hint success';
+        e.target.classList.add('success');
+        e.target.classList.remove('error');
+      } else {
+        hint.textContent = '✗ Email invalide';
+        hint.className = 'form-hint error';
+        e.target.classList.add('error');
+        e.target.classList.remove('success');
+      }
+    });
+
+    // Validation mot de passe
+    document.getElementById('regPassword').addEventListener('input', (e) => {
+      const val = e.target.value;
+      const hint = document.getElementById('regPasswordHint');
+      
+      if (val.length >= 6) {
+        hint.textContent = '✓ Mot de passe OK';
+        hint.className = 'form-hint success';
+        e.target.classList.add('success');
+      } else {
+        hint.textContent = 'Minimum 6 caractères';
+        hint.className = 'form-hint';
+        e.target.classList.remove('success');
+      }
+    });
+
+    // Validation confirmation
+    document.getElementById('regConfirm').addEventListener('input', (e) => {
+      const pass = document.getElementById('regPassword').value;
+      const hint = document.getElementById('regConfirmHint');
+      
+      if (e.target.value === pass && pass.length > 0) {
+        hint.textContent = '✓ Les mots de passe correspondent';
+        hint.className = 'form-hint success';
+        e.target.classList.add('success');
+      } else {
+        hint.textContent = '✗ Les mots de passe ne correspondent pas';
+        hint.className = 'form-hint error';
+        e.target.classList.add('error');
+      }
+    });
+
+    async function inscription() {
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirm').value;
+      const errorEl = document.getElementById('registerError');
+      const successEl = document.getElementById('registerSuccess');
+      const btn = document.getElementById('btnRegister');
+
+      errorEl.classList.remove('active');
+      successEl.classList.remove('active');
+
+      if (!email || !password || !confirm) {
+        errorEl.textContent = 'Remplis tous les champs';
+        errorEl.classList.add('active');
+        return;
+      }
+
+      if (password !== confirm) {
+        errorEl.textContent = 'Les mots de passe ne correspondent pas';
+        errorEl.classList.add('active');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Création...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          successEl.textContent = '✓ Compte créé ! Connexion en cours...';
+          successEl.classList.add('active');
+          
+          // Connecter automatiquement
+          setTimeout(() => {
+            sauvegarderSession(data.user);
+            fermerModale();
+          }, 1000);
+        } else {
+          errorEl.textContent = data.error || 'Erreur';
+          errorEl.classList.add('active');
+        }
+      } catch (err) {
+        errorEl.textContent = 'Erreur de connexion';
+        errorEl.classList.add('active');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Créer mon compte';
+    }
+
+    async function connexion() {
+      const email = document.getElementById('logEmail').value.trim();
+      const password = document.getElementById('logPassword').value;
+      const errorEl = document.getElementById('loginError');
+      const btn = document.getElementById('btnLogin');
+
+      errorEl.classList.remove('active');
+
+      if (!email || !password) {
+        errorEl.textContent = 'Remplis tous les champs';
+        errorEl.classList.add('active');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Connexion...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          sauvegarderSession(data.user);
+          fermerModale();
+        } else {
+          errorEl.textContent = data.error || 'Erreur';
+          errorEl.classList.add('active');
+        }
+      } catch (err) {
+        errorEl.textContent = 'Erreur de connexion';
+        errorEl.classList.add('active');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Se connecter';
+    }
+
+    function sauvegarderSession(user) {
+      localStorage.setItem('kenny_user', JSON.stringify(user));
+      afficherUserConnecte(user);
+    }
+
+    function afficherUserConnecte(user) {
+      document.getElementById('guestButtons').style.display = 'none';
+      document.getElementById('userInfo').classList.add('active');
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
+    }
+
+    function deconnexion() {
+      localStorage.removeItem('kenny_user');
+      document.getElementById('guestButtons').style.display = 'flex';
+      document.getElementById('userInfo').classList.remove('active');
+    }
+
+    // Vérifier la session au chargement
+    const savedUser = localStorage.getItem('kenny_user');
+    if (savedUser) {
+      afficherUserConnecte(JSON.parse(savedUser));
+    }
+
+    // Vérifier Supabase au chargement
+    fetch(API_URL).then(r => r.json()).then(d => {
+      if (d.supabase && d.supabase.includes('✅')) {
+        document.getElementById('apiSupabase').textContent = 'Supabase : ✅ Connecté';
+        document.getElementById('apiSupabase').className = 'terminal-line success';
+      }
+    }).catch(() => {});
+
+    // ===== CHAT =====
     document.querySelectorAll('.right-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.right-tab').forEach(t => t.classList.remove('active'));
@@ -720,7 +1105,6 @@
       });
     });
 
-    // Ajouter une ligne au terminal
     function logTerminal(texte, type = '') {
       const line = document.createElement('div');
       line.className = 'terminal-line ' + type;
@@ -729,65 +1113,36 @@
       terminal.scrollTop = terminal.scrollHeight;
     }
 
-    // Extraire les blocs de code
     function extraireCode(text) {
       const regex = /```(\w+)?\n([\s\S]*?)```/g;
       const blocs = [];
       let match;
       while ((match = regex.exec(text)) !== null) {
-        blocs.push({
-          langage: match[1] || 'code',
-          contenu: match[2].trim()
-        });
+        blocs.push({ langage: match[1] || 'code', contenu: match[2].trim() });
       }
       return blocs;
     }
 
-    // Retirer les blocs de code du texte
     function retirerCode(text) {
       return text.replace(/```[\s\S]*?```/g, '').trim();
     }
 
-    // Afficher le code dans l'onglet Code
     function afficherCode(blocs) {
       if (!blocs || blocs.length === 0) return;
-      
       const bloc = blocs[0];
       const lignes = bloc.contenu.split('\n');
-      
       codeTab.innerHTML = '<div class="code">' + 
         lignes.map((ligne, i) => 
           `<div class="code-line"><span class="line-num">${i + 1}</span><span>${escapeHtml(ligne)}</span></div>`
-        ).join('') + 
-      '</div>';
-      
+        ).join('') + '</div>';
       logTerminal('→ Code généré (' + lignes.length + ' lignes)', 'success');
     }
 
-    // Afficher dans le preview
     function afficherPreview(html) {
       previewIframe.srcdoc = html;
       previewContent.classList.add('active');
       browserUrl.textContent = 'kenny.app/preview';
       logTerminal('→ Aperçu mis à jour', 'success');
-    }
-
-    // Indicateur d'action
-    function afficherAction(texte) {
-      const existing = document.getElementById('actionIndicator');
-      if (existing) existing.remove();
-      
-      const div = document.createElement('div');
-      div.id = 'actionIndicator';
-      div.className = 'action-status';
-      div.innerHTML = '<div class="spinner"></div><span>' + escapeHtml(texte) + '</span>';
-      chatMessages.appendChild(div);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function retirerAction() {
-      const existing = document.getElementById('actionIndicator');
-      if (existing) existing.remove();
     }
 
     async function envoyerMessage() {
@@ -800,51 +1155,36 @@
 
       ajouterMessage(message, 'user');
       conversationHistory.push({ role: 'user', content: message });
-      
-      afficherAction('Réflexion en cours...');
       logTerminal('$ ' + message, 'info');
 
       try {
         const response = await fetch(`${API_URL}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            message: message,
-            history: conversationHistory.slice(-10)
-          })
+          body: JSON.stringify({ message, history: conversationHistory.slice(-10) })
         });
         
         const data = await response.json();
-        
-        retirerAction();
-        
         const blocs = extraireCode(data.response);
         const texteChat = retirerCode(data.response);
         
-        // Afficher le texte dans le chat
         if (texteChat) {
           ajouterMessage(texteChat, 'ia');
           logTerminal('→ Réponse reçue', 'success');
         }
         
-        // Afficher le code dans l'onglet Code (invisible par défaut)
         if (blocs.length > 0) {
           afficherCode(blocs);
-          
           const htmlBloc = blocs.find(b => b.langage === 'html');
-          if (htmlBloc) {
-            afficherPreview(htmlBloc.contenu);
-          }
+          if (htmlBloc) afficherPreview(htmlBloc.contenu);
         }
         
         if (data.response) {
           conversationHistory.push({ role: 'model', content: data.response });
         }
-        
       } catch (error) {
-        retirerAction();
         ajouterMessage('Erreur de connexion.', 'ia');
-        logTerminal('✗ Erreur de connexion', 'warn');
+        logTerminal('✗ Erreur', 'warn');
       }
 
       isLoading = false;
@@ -856,12 +1196,10 @@
       const msg = document.createElement('div');
       msg.className = `msg ${type}`;
       const avatar = type === 'ia' ? '🤖' : 'K';
-      
       msg.innerHTML = `
         <div class="msg-avatar ${type}">${avatar}</div>
         <div class="msg-bubble">${escapeHtml(texte)}</div>
       `;
-      
       chatMessages.appendChild(msg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
