@@ -19,6 +19,9 @@
       --texte: #ffffff;
       --texte-dim: rgba(255, 255, 255, 0.6);
       --texte-faint: rgba(255, 255, 255, 0.4);
+      --vert: #27c93f;
+      --rouge: #ff5f56;
+      --jaune: #ffbd2e;
       --transition: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -26,7 +29,6 @@
       width: 100%;
       min-height: 100%;
       overflow-x: auto;
-      overflow-y: hidden;
       background: var(--noir);
       color: var(--texte);
       font-family: 'Inter', sans-serif;
@@ -49,52 +51,48 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      padding: 15px 40px;
+      padding: 10px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(6, 3, 13, 0.9);
+      background: rgba(6, 3, 13, 0.92);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--bordure);
-      gap: 20px;
+      gap: 16px;
       min-width: 1100px;
+      height: 56px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .logo-svg {
-      width: 42px;
-      height: 42px;
-      filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
-    }
-
-    .logo-text {
-      font-size: 1.4rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ffffff 0%, var(--violet-300) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.6));
     }
 
     nav {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       align-items: center;
+      flex-shrink: 0;
     }
 
     nav a {
       color: var(--texte-dim);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      padding: 8px 14px;
-      border-radius: 8px;
+      padding: 6px 12px;
+      border-radius: 7px;
       transition: all 0.3s var(--transition);
+      white-space: nowrap;
     }
 
     nav a:hover {
@@ -104,87 +102,133 @@
 
     nav a.active { color: var(--violet-300); }
 
+    .search-bar {
+      flex: 1;
+      max-width: 380px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      border-radius: 20px;
+      transition: all 0.3s var(--transition);
+    }
+
+    .search-bar:focus-within {
+      border-color: var(--violet-500);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    }
+
+    .search-bar svg {
+      width: 14px;
+      height: 14px;
+      color: var(--texte-faint);
+      flex-shrink: 0;
+    }
+
+    .search-bar input {
+      background: none;
+      border: none;
+      color: var(--texte);
+      font-size: 0.78rem;
+      font-family: inherit;
+      outline: none;
+      width: 100%;
+    }
+
+    .search-bar input::placeholder { color: var(--texte-faint); }
+
     .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
-    .btn-login {
-      background: rgba(139, 92, 246, 0.1);
-      color: var(--texte);
+    .icon-btn {
+      position: relative;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: rgba(139, 92, 246, 0.08);
       border: 1px solid var(--bordure);
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s var(--transition);
-    }
-
-    .btn-login:hover {
-      background: rgba(139, 92, 246, 0.2);
-      border-color: var(--violet-500);
-    }
-
-    .btn-register {
-      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-      transition: all 0.3s var(--transition);
-    }
-
-    .btn-register:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
-    }
-
-    .user-info {
-      display: none;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .user-info.active { display: flex; }
-
-    .user-email {
       color: var(--texte-dim);
-      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--transition);
     }
 
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+    .icon-btn:hover {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--texte);
+      border-color: var(--bordure-hover);
+    }
+
+    .icon-btn svg { width: 15px; height: 15px; }
+
+    .icon-btn .badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 7px;
+      height: 7px;
+      background: var(--rouge);
+      border-radius: 50%;
+      border: 2px solid var(--noir);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 95, 86, 0.7); }
+      50% { box-shadow: 0 0 0 5px rgba(255, 95, 86, 0); }
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    .btn-logout {
-      background: rgba(255, 95, 86, 0.1);
-      border: 1px solid rgba(255, 95, 86, 0.3);
-      color: #ff5f56;
-      padding: 8px 14px;
-      border-radius: 8px;
       font-size: 0.8rem;
       cursor: pointer;
-      font-weight: 600;
+      border: 2px solid transparent;
+      transition: all 0.3s var(--transition);
     }
 
-    .btn-logout:hover {
-      background: rgba(255, 95, 86, 0.2);
+    .avatar:hover {
+      border-color: var(--violet-300);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
     }
+
+    .btn-new-project {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      color: white;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+      transition: all 0.3s var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-new-project:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+    }
+
+    .btn-new-project svg { width: 13px; height: 13px; }
 
     /* ===== MAIN ===== */
     .main {
@@ -192,44 +236,93 @@
       z-index: 1;
       display: grid;
       grid-template-columns: 340px 1fr 340px;
-      gap: 15px;
-      padding: 15px;
-      height: calc(100vh - 75px);
+      gap: 12px;
+      padding: 12px;
+      height: calc(100vh - 56px);
       min-width: 1100px;
+      transition: grid-template-columns 0.3s var(--transition);
     }
+
+    .main.right-hidden {
+      grid-template-columns: 340px 1fr 0px;
+    }
+
+    .main.right-hidden .panel-right { display: none; }
 
     .panel {
       background: var(--panel);
       border: 1px solid var(--bordure);
       border-radius: 14px;
-      padding: 15px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       backdrop-filter: blur(20px);
       overflow: hidden;
+      transition: border-color 0.3s;
     }
 
-    .panel-header {
+    /* ===== AGENTS NAV HORIZONTAL ===== */
+    .agents-nav {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
+      flex-direction: row;
+      gap: 6px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--bordure);
+      flex-shrink: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .agents-nav::-webkit-scrollbar { display: none; }
+
+    .agent-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 7px 8px;
+      border-radius: 10px;
+      font-size: 0.62rem;
+      color: var(--texte-dim);
+      transition: all 0.3s var(--transition);
+      white-space: nowrap;
+      min-width: 62px;
+      text-align: center;
       flex-shrink: 0;
     }
 
-    .panel-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .agent-item .agent-icon { font-size: 0.95rem; }
+
+    .agent-item .agent-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 62px;
+      font-size: 0.6rem;
     }
 
-    .panel-title svg { width: 16px; height: 16px; color: var(--violet-300); }
+    .agent-item .agent-status { font-size: 0.75rem; }
 
-    /* CHAT */
+    .agent-item.active {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--texte);
+    }
+
+    .agent-item.done { color: var(--vert); }
+
+    .agent-spinner {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      border-top-color: var(--violet-300);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== CHAT ===== */
     .chat-messages {
       flex: 1;
       display: flex;
@@ -255,14 +348,14 @@
     .msg.user { justify-content: flex-end; }
 
     .msg-avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
 
     .msg-avatar.ia {
@@ -279,7 +372,7 @@
     .msg-bubble {
       padding: 10px 14px;
       border-radius: 14px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       line-height: 1.5;
       max-width: 85%;
       word-wrap: break-word;
@@ -337,7 +430,27 @@
     .chat-input button:disabled { opacity: 0.5; }
     .chat-input button svg { width: 18px; height: 18px; }
 
-    /* PREVIEW */
+    /* ===== PREVIEW ===== */
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--bordure);
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-title svg { width: 15px; height: 15px; color: var(--violet-300); }
+
     .browser-bar {
       display: flex;
       align-items: center;
@@ -352,20 +465,42 @@
 
     .browser-dots { display: flex; gap: 6px; }
     .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
-    .browser-dots span:nth-child(1) { background: #ff5f56; }
-    .browser-dots span:nth-child(2) { background: #ffbd2e; }
-    .browser-dots span:nth-child(3) { background: #27c93f; }
+    .browser-dots span:nth-child(1) { background: var(--rouge); }
+    .browser-dots span:nth-child(2) { background: var(--jaune); }
+    .browser-dots span:nth-child(3) { background: var(--vert); }
 
     .browser-url {
       flex: 1;
       background: rgba(139, 92, 246, 0.1);
       border-radius: 6px;
       padding: 5px 12px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--texte-faint);
       font-family: 'JetBrains Mono', monospace;
       text-align: center;
     }
+
+    .btn-toggle-right {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--bordure);
+      color: var(--texte-dim);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s var(--transition);
+    }
+
+    .btn-toggle-right:hover {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--texte);
+    }
+
+    .btn-toggle-right svg { width: 14px; height: 14px; }
 
     .preview-content {
       flex: 1;
@@ -393,7 +528,7 @@
       margin-bottom: 15px;
     }
 
-    .preview-empty p { font-size: 0.85rem; }
+    .preview-empty p { font-size: 0.83rem; }
 
     .preview-iframe {
       width: 100%;
@@ -406,129 +541,74 @@
     .preview-content.active .preview-empty { display: none; }
     .preview-content.active .preview-iframe { display: block; }
 
-    /* ONGLETS DROITE */
-    .right-tabs {
+    /* ===== COLONNE DROITE ===== */
+    .panel-right {
+      padding: 0;
       display: flex;
-      gap: 4px;
+      flex-direction: column;
+      background: transparent;
+      border: none;
+      backdrop-filter: none;
+    }
+
+    .right-top {
+      flex: 6;
+      background: var(--panel);
+      border: 1px solid var(--bordure);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .right-bottom {
+      flex: 4;
+      background: var(--panel);
+      border: 1px solid var(--bordure);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(20px);
+      overflow: hidden;
+    }
+
+    .right-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 10px;
       padding-bottom: 8px;
       border-bottom: 1px solid var(--bordure);
       flex-shrink: 0;
+      gap: 6px;
     }
 
-    .right-tab {
-      padding: 6px 12px;
-      background: rgba(6, 3, 13, 0.4);
-      border: 1px solid transparent;
-      border-radius: 6px;
-      font-size: 0.7rem;
-      color: var(--texte-dim);
-      white-space: nowrap;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .right-tab.active {
-      background: rgba(139, 92, 246, 0.15);
-      border-color: var(--bordure-hover);
-      color: var(--texte);
-    }
-
-    .tab-content {
-      flex: 1;
-      overflow: auto;
-      min-height: 0;
-      display: none;
-    }
-
-    .tab-content.active { display: block; }
-
-    .code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      line-height: 1.6;
-      padding: 12px;
-      background: rgba(6, 3, 13, 0.6);
-      border-radius: 10px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-
-    .code-line {
-      display: flex;
-      gap: 12px;
-      white-space: pre;
-    }
-
-    .line-num {
-      color: rgba(139, 92, 246, 0.35);
-      min-width: 20px;
-      text-align: right;
-      user-select: none;
-      flex-shrink: 0;
-    }
-
-    .terminal {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      line-height: 1.7;
-      padding: 12px;
-      background: rgba(6, 3, 13, 0.8);
-      border-radius: 10px;
-      color: rgba(255, 255, 255, 0.7);
-      min-height: 100%;
-    }
-
-    .terminal-line.success { color: #27c93f; }
-    .terminal-line.info { color: #82aaff; }
-    .terminal-line.warn { color: #ffbd2e; }
-
-    .empty-tab {
-      text-align: center;
-      padding: 30px 20px;
-      color: var(--texte-faint);
+    .right-title {
       font-size: 0.8rem;
-    }
-
-    /* ===== MODALE AUTH ===== */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      z-index: 2000;
-      display: none;
+      font-weight: 600;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 20px;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
     }
 
-    .modal-overlay.active { display: flex; }
+    .right-title svg { width: 14px; height: 14px; color: var(--violet-300); flex-shrink: 0; }
 
-    .modal {
-      background: rgba(20, 8, 35, 0.95);
-      border: 1px solid var(--bordure-hover);
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 450px;
-      width: 100%;
-      animation: modalApparait 0.3s var(--transition);
-      position: relative;
-      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+    .right-title span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    @keyframes modalApparait {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+    .right-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
       background: rgba(139, 92, 246, 0.1);
       border: 1px solid var(--bordure);
       color: var(--texte-dim);
@@ -536,147 +616,316 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .modal-close:hover {
-      background: rgba(255, 95, 86, 0.2);
-      color: #ff5f56;
-    }
-
-    .modal-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #fff, var(--violet-300));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .modal-subtitle {
-      color: var(--texte-dim);
-      font-size: 0.9rem;
-      margin-bottom: 25px;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--texte-dim);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 14px 16px;
-      background: rgba(6, 3, 13, 0.6);
-      border: 1px solid var(--bordure);
-      border-radius: 10px;
-      color: var(--texte);
-      font-size: 0.9rem;
-      font-family: inherit;
-      outline: none;
+      flex-shrink: 0;
       transition: all 0.3s var(--transition);
     }
 
-    .form-input:focus {
+    .right-btn:hover {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--texte);
       border-color: var(--violet-500);
-      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
     }
 
-    .form-input.error {
-      border-color: #ff5f56;
+    .right-btn svg { width: 13px; height: 13px; }
+
+    .files-view {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
     }
 
-    .form-input.success {
-      border-color: #27c93f;
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.76rem;
+      color: var(--texte-dim);
+      transition: all 0.2s var(--transition);
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .form-hint {
-      font-size: 0.75rem;
-      color: var(--texte-faint);
-      margin-top: 6px;
+    .file-item:hover {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--texte);
     }
 
-    .form-hint.error { color: #ff5f56; }
-    .form-hint.success { color: #27c93f; }
+    .file-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--violet-300);
+      flex-shrink: 0;
+    }
 
-    .btn-submit {
+    .file-item .file-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .code-view {
+      flex: 1;
+      overflow: auto;
+      min-height: 0;
+      display: none;
+    }
+
+    .code-view.active { display: block; }
+
+    .code-content {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      line-height: 1.6;
+      padding: 10px;
+      background: rgba(6, 3, 13, 0.6);
+      border-radius: 8px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 10px;
+      white-space: pre;
+    }
+
+    .line-num {
+      color: rgba(139, 92, 246, 0.35);
+      min-width: 18px;
+      text-align: right;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .terminal-tabs {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .terminal-tab {
+      padding: 5px 10px;
+      background: rgba(6, 3, 13, 0.4);
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      color: var(--texte-dim);
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.3s var(--transition);
+    }
+
+    .terminal-tab:hover { color: var(--texte); }
+
+    .terminal-tab.active {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: var(--bordure-hover);
+      color: var(--texte);
+    }
+
+    .terminal-content {
+      flex: 1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      line-height: 1.7;
+      padding: 10px;
+      background: rgba(6, 3, 13, 0.8);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    .terminal-line { white-space: pre-wrap; word-wrap: break-word; }
+    .terminal-line.success { color: var(--vert); }
+    .terminal-line.info { color: #82aaff; }
+    .terminal-line.warn { color: var(--jaune); }
+    .terminal-line.error { color: var(--rouge); }
+
+    /* ===== BARRE D'ACTIONS ===== */
+    .actions-bar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px;
+      max-width: 1600px;
+      margin: 0 auto;
       width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-      border: none;
-      border-radius: 10px;
-      color: white;
-      font-size: 0.95rem;
+      min-width: 1100px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 10px;
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      border: 1px solid var(--bordure);
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--texte);
       transition: all 0.3s var(--transition);
     }
 
-    .btn-submit:hover:not(:disabled) {
+    .action-btn:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--violet-500);
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      border: none;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
+
+    .action-btn.primary:hover {
       box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
     }
 
-    .btn-submit:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .action-btn svg { width: 16px; height: 16px; }
 
-    .modal-switch {
-      text-align: center;
+    /* ===== FOOTER ===== */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 40px 30px 25px;
+      background: rgba(6, 3, 13, 0.8);
+      border-top: 1px solid var(--bordure);
       margin-top: 20px;
+      min-width: 1100px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+    }
+
+    .footer-brand .logo { margin-bottom: 12px; }
+
+    .footer-brand p {
       color: var(--texte-dim);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      max-width: 280px;
+      margin-bottom: 15px;
     }
 
-    .modal-switch button {
-      background: none;
-      border: none;
-      color: var(--violet-300);
-      cursor: pointer;
+    .footer-socials { display: flex; gap: 8px; }
+
+    .social-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--texte-dim);
+      text-decoration: none;
+      transition: all 0.3s var(--transition);
+    }
+
+    .social-btn:hover {
+      background: var(--violet-500);
+      color: white;
+      border-color: var(--violet-500);
+      transform: translateY(-2px);
+    }
+
+    .social-btn svg { width: 15px; height: 15px; }
+
+    .footer-col h4 {
+      font-size: 0.82rem;
       font-weight: 600;
-      font-family: inherit;
-      font-size: 0.85rem;
-      text-decoration: underline;
+      color: var(--texte);
+      margin-bottom: 12px;
     }
 
-    .modal-error {
-      padding: 12px;
-      background: rgba(255, 95, 86, 0.1);
-      border: 1px solid rgba(255, 95, 86, 0.3);
-      border-radius: 10px;
-      color: #ff5f56;
-      font-size: 0.85rem;
-      margin-bottom: 15px;
-      display: none;
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .modal-error.active { display: block; }
-
-    .modal-success {
-      padding: 12px;
-      background: rgba(39, 201, 63, 0.1);
-      border: 1px solid rgba(39, 201, 63, 0.3);
-      border-radius: 10px;
-      color: #27c93f;
-      font-size: 0.85rem;
-      margin-bottom: 15px;
-      display: none;
+    .footer-col a {
+      color: var(--texte-dim);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.3s;
     }
 
-    .modal-success.active { display: block; }
+    .footer-col a:hover { color: var(--violet-300); }
+
+    .newsletter { display: flex; gap: 6px; margin-top: 10px; }
+
+    .newsletter input {
+      flex: 1;
+      padding: 9px 12px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--bordure);
+      border-radius: 9px;
+      color: var(--texte);
+      font-size: 0.8rem;
+      outline: none;
+      min-width: 0;
+    }
+
+    .newsletter input::placeholder { color: var(--texte-faint); }
+
+    .newsletter button {
+      padding: 9px 14px;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      border: none;
+      border-radius: 9px;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .newsletter button svg { width: 14px; height: 14px; }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--bordure);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--texte-faint);
+    }
+
+    .footer-bottom .links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom a {
+      color: var(--texte-faint);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-bottom a:hover { color: var(--violet-300); }
 
   </style>
 </head>
@@ -695,53 +944,90 @@
         <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad1)"/>
         <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" 
               stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <circle cx="72" cy="28" r="5" fill="#fff" opacity="0.9"/>
       </svg>
-      <span class="logo-text">Kenny</span>
     </div>
 
     <nav>
-      <a href="#" class="active">Accueil</a>
-      <a href="#">Créer</a>
-      <a href="#">Mes apps</a>
-      <a href="#">Prix</a>
+      <a href="#" class="active">Home</a>
+      <a href="#">Create</a>
+      <a href="#">Apps</a>
+      <a href="#">Pricing</a>
+      <a href="#">Contact</a>
     </nav>
 
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="Search">
+    </div>
+
     <div class="header-right">
-      <!-- Non connecté -->
-      <div id="guestButtons">
-        <button class="btn-login" onclick="ouvrirModale('login')">Connexion</button>
-        <button class="btn-register" onclick="ouvrirModale('register')">S'inscrire</button>
-      </div>
-      <!-- Connecté -->
-      <div class="user-info" id="userInfo">
-        <span class="user-email" id="userEmail">email@exemple.com</span>
-        <div class="user-avatar" id="userAvatar">K</div>
-        <button class="btn-logout" onclick="deconnexion()">Déconnexion</button>
-      </div>
+      <button class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+        </svg>
+        <span class="badge"></span>
+      </button>
+      <div class="avatar">K</div>
+      <button class="btn-new-project">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        New Project
+      </button>
     </div>
   </header>
 
   <!-- MAIN -->
-  <div class="main">
+  <div class="main" id="main">
 
+    <!-- CHAT + AGENTS -->
     <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          Assistant IA
+      <div class="agents-nav">
+        <div class="agent-item" id="agent-1">
+          <span class="agent-icon">🧠</span>
+          <span class="agent-name">Orchestre</span>
+          <span class="agent-status">⏸️</span>
+        </div>
+        <div class="agent-item" id="agent-2">
+          <span class="agent-icon">🎨</span>
+          <span class="agent-name">Visuel</span>
+          <span class="agent-status">⏸️</span>
+        </div>
+        <div class="agent-item" id="agent-3">
+          <span class="agent-icon">💻</span>
+          <span class="agent-name">Codeur</span>
+          <span class="agent-status">⏸️</span>
+        </div>
+        <div class="agent-item" id="agent-4">
+          <span class="agent-icon">🧪</span>
+          <span class="agent-name">Testeur</span>
+          <span class="agent-status">⏸️</span>
+        </div>
+        <div class="agent-item" id="agent-5">
+          <span class="agent-icon">🛡️</span>
+          <span class="agent-name">Hacker</span>
+          <span class="agent-status">⏸️</span>
+        </div>
+        <div class="agent-item" id="agent-6">
+          <span class="agent-icon">🔍</span>
+          <span class="agent-name">Surveillant</span>
+          <span class="agent-status">⏸️</span>
         </div>
       </div>
+
       <div class="chat-messages" id="chatMessages">
         <div class="msg ia">
           <div class="msg-avatar ia">🤖</div>
-          <div class="msg-bubble">Décris ton app.</div>
+          <div class="msg-bubble">Bonjour ! Décris-moi l'app que tu veux créer.</div>
         </div>
       </div>
       <div class="chat-input">
-        <input type="text" id="chatInput" placeholder="Message..." autocomplete="off">
+        <input type="text" id="chatInput" placeholder="Décris ton app..." autocomplete="off">
         <button id="chatSend">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="m22 2-7 20-4-9-9-4Z"/>
@@ -751,6 +1037,7 @@
       </div>
     </div>
 
+    <!-- PREVIEW -->
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
@@ -767,6 +1054,11 @@
           <span></span><span></span><span></span>
         </div>
         <div class="browser-url" id="browserUrl">kenny.app/preview</div>
+        <button class="btn-toggle-right" onclick="toggleRight()" title="Masquer/Afficher le panneau droit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
       </div>
       <div class="preview-content" id="previewContent">
         <div class="preview-empty">
@@ -781,101 +1073,194 @@
       </div>
     </div>
 
-    <div class="panel">
-      <div class="right-tabs">
-        <button class="right-tab active" data-tab="code">Code</button>
-        <button class="right-tab" data-tab="terminal">Terminal</button>
-        <button class="right-tab" data-tab="api">API</button>
+    <!-- COLONNE DROITE -->
+    <div class="panel-right" id="panelRight">
+      <div class="right-top">
+        <div class="right-header">
+          <div class="right-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span id="rightTitleText">Fichiers</span>
+          </div>
+          <button class="right-btn" id="btnRetour" onclick="retourFichiers()" style="display:none;" title="Retour">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"/>
+              <polyline points="12 19 5 12 12 5"/>
+            </svg>
+          </button>
+          <button class="right-btn" id="btnCopier" onclick="copierCode()" style="display:none;" title="Copier">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="files-view" id="filesView">
+          <div style="text-align: center; padding: 20px; color: var(--texte-faint); font-size: 0.75rem;">
+            Aucun fichier pour l'instant
+          </div>
+        </div>
+
+        <div class="code-view" id="codeView">
+          <div class="code-content" id="codeContent"></div>
+        </div>
       </div>
 
-      <div class="tab-content active" id="tab-code">
-        <div class="empty-tab">Le code apparaîtra ici</div>
-      </div>
+      <div class="right-bottom">
+        <div class="right-header">
+          <div class="right-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 17 10 11 4 5"/>
+              <line x1="12" y1="19" x2="20" y2="19"/>
+            </svg>
+            <span>Console</span>
+          </div>
+        </div>
 
-      <div class="tab-content" id="tab-terminal">
-        <div class="terminal" id="terminal">
+        <div class="terminal-tabs">
+          <button class="terminal-tab active" data-term="terminal">Terminal</button>
+          <button class="terminal-tab" data-term="pip">Pip</button>
+          <button class="terminal-tab" data-term="logs">Logs</button>
+        </div>
+
+        <div class="terminal-content" id="terminalContent">
           <div class="terminal-line info">$ Kenny Terminal prêt</div>
-        </div>
-      </div>
-
-      <div class="tab-content" id="tab-api">
-        <div class="terminal">
-          <div class="terminal-line info">Gemini API : ✅ Configuré</div>
-          <div class="terminal-line info">Backend : ✅ Connecté</div>
-          <div class="terminal-line success" id="apiSupabase">Supabase : ⏳ Vérification...</div>
+          <div class="terminal-line">En attente d'actions...</div>
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- MODALE AUTH -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <button class="modal-close" onclick="fermerModale()">✕</button>
-      
-      <!-- Étape 1 : Inscription -->
-      <div id="registerStep">
-        <h2 class="modal-title">Créer un compte</h2>
-        <p class="modal-subtitle">Rejoins Kenny et crée tes apps en quelques minutes.</p>
-        
-        <div class="modal-error" id="registerError"></div>
-        <div class="modal-success" id="registerSuccess"></div>
+  <!-- BARRE D'ACTIONS -->
+  <div class="actions-bar">
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+        <polyline points="17 21 17 13 7 13 7 21"/>
+        <polyline points="7 3 7 8 15 8"/>
+      </svg>
+      Save
+    </button>
+    <button class="action-btn primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+      </svg>
+      Deploy
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 11l3 3L22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+      Test
+    </button>
+    <button class="action-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+      </svg>
+      Share
+    </button>
+  </div>
 
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-input" id="regEmail" placeholder="ton@email.com">
-          <div class="form-hint" id="regEmailHint"></div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="logo">
+          <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
+            <defs>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#a78bfa"/>
+                <stop offset="100%" stop-color="#6d28d9"/>
+              </linearGradient>
+            </defs>
+            <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad2)"/>
+            <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" 
+                  stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span class="logo-text">Logo</span>
         </div>
-
-        <div class="form-group">
-          <label class="form-label">Mot de passe</label>
-          <input type="password" class="form-input" id="regPassword" placeholder="••••••••">
-          <div class="form-hint" id="regPasswordHint">Minimum 6 caractères</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Confirmer le mot de passe</label>
-          <input type="password" class="form-input" id="regConfirm" placeholder="••••••••">
-          <div class="form-hint" id="regConfirmHint"></div>
-        </div>
-
-        <button class="btn-submit" id="btnRegister" onclick="inscription()">
-          Créer mon compte
-        </button>
-
-        <div class="modal-switch">
-          Déjà un compte ? <button onclick="ouvrirModale('login')">Se connecter</button>
+        <p>Crée ton application avec l'IA en quelques minutes. Sans code. Sans limite.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
         </div>
       </div>
 
-      <!-- Étape 2 : Connexion -->
-      <div id="loginStep" style="display: none;">
-        <h2 class="modal-title">Connexion</h2>
-        <p class="modal-subtitle">Content de te revoir !</p>
-        
-        <div class="modal-error" id="loginError"></div>
+      <div class="footer-col">
+        <h4>Produit</h4>
+        <ul>
+          <li><a href="#">Fonctionnalités</a></li>
+          <li><a href="#">Templates</a></li>
+          <li><a href="#">Intégrations</a></li>
+          <li><a href="#">Prix</a></li>
+        </ul>
+      </div>
 
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-input" id="logEmail" placeholder="ton@email.com">
-        </div>
+      <div class="footer-col">
+        <h4>Ressources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Tutoriels</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
 
-        <div class="form-group">
-          <label class="form-label">Mot de passe</label>
-          <input type="password" class="form-input" id="logPassword" placeholder="••••••••">
-        </div>
-
-        <button class="btn-submit" id="btnLogin" onclick="connexion()">
-          Se connecter
-        </button>
-
-        <div class="modal-switch">
-          Pas de compte ? <button onclick="ouvrirModale('register')">S'inscrire</button>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="color: var(--texte-dim); font-size: 0.8rem; line-height: 1.5; margin-bottom: 8px;">
+          Reçois les nouveautés chaque semaine.
+        </p>
+        <div class="newsletter">
+          <input type="email" placeholder="ton@email.com">
+          <button>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="footer-bottom">
+      <p>Copyright © 2026, Kenny Inc.</p>
+      <div class="links">
+        <a href="#">Mentions légales</a>
+        <a href="#">CGU</a>
+        <a href="#">Confidentialité</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const API_URL = 'https://kenny-backend-lx76.onrender.com';
@@ -885,223 +1270,98 @@
     const previewContent = document.getElementById('previewContent');
     const previewIframe = document.getElementById('previewIframe');
     const browserUrl = document.getElementById('browserUrl');
-    const codeTab = document.getElementById('tab-code');
-    const terminal = document.getElementById('terminal');
-    const modalOverlay = document.getElementById('modalOverlay');
+    const filesView = document.getElementById('filesView');
+    const codeView = document.getElementById('codeView');
+    const codeContent = document.getElementById('codeContent');
+    const rightTitleText = document.getElementById('rightTitleText');
+    const btnRetour = document.getElementById('btnRetour');
+    const btnCopier = document.getElementById('btnCopier');
+    const terminalContent = document.getElementById('terminalContent');
     let isLoading = false;
+    let dernierCode = '';
+    let codeActuel = '';
     const conversationHistory = [];
+    const fichiers = [];
 
-    // ===== AUTH =====
-    function ouvrirModale(type) {
-      modalOverlay.classList.add('active');
-      if (type === 'login') {
-        document.getElementById('registerStep').style.display = 'none';
-        document.getElementById('loginStep').style.display = 'block';
-      } else {
-        document.getElementById('registerStep').style.display = 'block';
-        document.getElementById('loginStep').style.display = 'none';
+    // ===== AGENTS =====
+    const agents = [1, 2, 3, 4, 5, 6];
+
+    function resetAgents() {
+      agents.forEach(id => {
+        const el = document.getElementById('agent-' + id);
+        el.className = 'agent-item';
+        el.querySelector('.agent-status').innerHTML = '⏸️';
+      });
+    }
+
+    function setAgentActive(id) {
+      const el = document.getElementById('agent-' + id);
+      el.className = 'agent-item active';
+      el.querySelector('.agent-status').innerHTML = '<div class="agent-spinner"></div>';
+    }
+
+    function setAgentDone(id) {
+      const el = document.getElementById('agent-' + id);
+      el.className = 'agent-item done';
+      el.querySelector('.agent-status').innerHTML = '✅';
+    }
+
+    async function animerAgents() {
+      for (let i = 1; i <= 6; i++) {
+        setAgentActive(i);
+        await new Promise(r => setTimeout(r, 700 + Math.random() * 700));
+        setAgentDone(i);
       }
     }
 
-    function fermerModale() {
-      modalOverlay.classList.remove('active');
-      document.getElementById('registerError').classList.remove('active');
-      document.getElementById('loginError').classList.remove('active');
+    // ===== TOGGLE =====
+    function toggleRight() {
+      document.getElementById('main').classList.toggle('right-hidden');
     }
 
-    // Validation email en temps réel
-    document.getElementById('regEmail').addEventListener('input', (e) => {
-      const val = e.target.value;
-      const hint = document.getElementById('regEmailHint');
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // ===== FICHIERS =====
+    function voirFichier(nom, contenu) {
+      codeActuel = contenu;
+      rightTitleText.textContent = nom;
+      filesView.style.display = 'none';
+      codeView.classList.add('active');
+      btnRetour.style.display = 'flex';
+      btnCopier.style.display = 'flex';
       
-      if (!val) {
-        hint.textContent = '';
-        hint.className = 'form-hint';
-        e.target.classList.remove('error', 'success');
-      } else if (regex.test(val)) {
-        hint.textContent = '✓ Email valide';
-        hint.className = 'form-hint success';
-        e.target.classList.add('success');
-        e.target.classList.remove('error');
-      } else {
-        hint.textContent = '✗ Email invalide';
-        hint.className = 'form-hint error';
-        e.target.classList.add('error');
-        e.target.classList.remove('success');
-      }
-    });
-
-    // Validation mot de passe
-    document.getElementById('regPassword').addEventListener('input', (e) => {
-      const val = e.target.value;
-      const hint = document.getElementById('regPasswordHint');
-      
-      if (val.length >= 6) {
-        hint.textContent = '✓ Mot de passe OK';
-        hint.className = 'form-hint success';
-        e.target.classList.add('success');
-      } else {
-        hint.textContent = 'Minimum 6 caractères';
-        hint.className = 'form-hint';
-        e.target.classList.remove('success');
-      }
-    });
-
-    // Validation confirmation
-    document.getElementById('regConfirm').addEventListener('input', (e) => {
-      const pass = document.getElementById('regPassword').value;
-      const hint = document.getElementById('regConfirmHint');
-      
-      if (e.target.value === pass && pass.length > 0) {
-        hint.textContent = '✓ Les mots de passe correspondent';
-        hint.className = 'form-hint success';
-        e.target.classList.add('success');
-      } else {
-        hint.textContent = '✗ Les mots de passe ne correspondent pas';
-        hint.className = 'form-hint error';
-        e.target.classList.add('error');
-      }
-    });
-
-    async function inscription() {
-      const email = document.getElementById('regEmail').value.trim();
-      const password = document.getElementById('regPassword').value;
-      const confirm = document.getElementById('regConfirm').value;
-      const errorEl = document.getElementById('registerError');
-      const successEl = document.getElementById('registerSuccess');
-      const btn = document.getElementById('btnRegister');
-
-      errorEl.classList.remove('active');
-      successEl.classList.remove('active');
-
-      if (!email || !password || !confirm) {
-        errorEl.textContent = 'Remplis tous les champs';
-        errorEl.classList.add('active');
-        return;
-      }
-
-      if (password !== confirm) {
-        errorEl.textContent = 'Les mots de passe ne correspondent pas';
-        errorEl.classList.add('active');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Création...';
-
-      try {
-        const res = await fetch(`${API_URL}/api/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-
-        const data = await res.json();
-
-        if (data.success) {
-          successEl.textContent = '✓ Compte créé ! Connexion en cours...';
-          successEl.classList.add('active');
-          
-          // Connecter automatiquement
-          setTimeout(() => {
-            sauvegarderSession(data.user);
-            fermerModale();
-          }, 1000);
-        } else {
-          errorEl.textContent = data.error || 'Erreur';
-          errorEl.classList.add('active');
-        }
-      } catch (err) {
-        errorEl.textContent = 'Erreur de connexion';
-        errorEl.classList.add('active');
-      }
-
-      btn.disabled = false;
-      btn.textContent = 'Créer mon compte';
+      const lignes = contenu.split('\n');
+      codeContent.innerHTML = lignes.map((ligne, i) => 
+        `<div class="code-line"><span class="line-num">${i + 1}</span><span>${escapeHtml(ligne)}</span></div>`
+      ).join('');
     }
 
-    async function connexion() {
-      const email = document.getElementById('logEmail').value.trim();
-      const password = document.getElementById('logPassword').value;
-      const errorEl = document.getElementById('loginError');
-      const btn = document.getElementById('btnLogin');
-
-      errorEl.classList.remove('active');
-
-      if (!email || !password) {
-        errorEl.textContent = 'Remplis tous les champs';
-        errorEl.classList.add('active');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Connexion...';
-
-      try {
-        const res = await fetch(`${API_URL}/api/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-
-        const data = await res.json();
-
-        if (data.success) {
-          sauvegarderSession(data.user);
-          fermerModale();
-        } else {
-          errorEl.textContent = data.error || 'Erreur';
-          errorEl.classList.add('active');
-        }
-      } catch (err) {
-        errorEl.textContent = 'Erreur de connexion';
-        errorEl.classList.add('active');
-      }
-
-      btn.disabled = false;
-      btn.textContent = 'Se connecter';
+    function retourFichiers() {
+      rightTitleText.textContent = 'Fichiers';
+      filesView.style.display = 'block';
+      codeView.classList.remove('active');
+      btnRetour.style.display = 'none';
+      btnCopier.style.display = 'none';
     }
 
-    function sauvegarderSession(user) {
-      localStorage.setItem('kenny_user', JSON.stringify(user));
-      afficherUserConnecte(user);
+    function copierCode() {
+      navigator.clipboard.writeText(codeActuel).then(() => {
+        logTerminal('✓ Code copié', 'success');
+      });
     }
 
-    function afficherUserConnecte(user) {
-      document.getElementById('guestButtons').style.display = 'none';
-      document.getElementById('userInfo').classList.add('active');
-      document.getElementById('userEmail').textContent = user.email;
-      document.getElementById('userAvatar').textContent = user.email[0].toUpperCase();
-    }
-
-    function deconnexion() {
-      localStorage.removeItem('kenny_user');
-      document.getElementById('guestButtons').style.display = 'flex';
-      document.getElementById('userInfo').classList.remove('active');
-    }
-
-    // Vérifier la session au chargement
-    const savedUser = localStorage.getItem('kenny_user');
-    if (savedUser) {
-      afficherUserConnecte(JSON.parse(savedUser));
-    }
-
-    // Vérifier Supabase au chargement
-    fetch(API_URL).then(r => r.json()).then(d => {
-      if (d.supabase && d.supabase.includes('✅')) {
-        document.getElementById('apiSupabase').textContent = 'Supabase : ✅ Connecté';
-        document.getElementById('apiSupabase').className = 'terminal-line success';
-      }
-    }).catch(() => {});
-
-    // ===== CHAT =====
-    document.querySelectorAll('.right-tab').forEach(tab => {
+    // ===== TERMINAL =====
+    document.querySelectorAll('.terminal-tab').forEach(tab => {
       tab.addEventListener('click', () => {
-        document.querySelectorAll('.right-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.terminal-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+        const type = tab.dataset.term;
+        
+        if (type === 'terminal') {
+          terminalContent.innerHTML = '<div class="terminal-line info">$ Kenny Terminal prêt</div><div class="terminal-line">En attente d\'actions...</div>';
+        } else if (type === 'pip') {
+          terminalContent.innerHTML = '<div class="terminal-line info">$ pip install -r requirements.txt</div><div class="terminal-line success">✓ Toutes les dépendances sont installées</div>';
+        } else if (type === 'logs') {
+          terminalContent.innerHTML = '<div class="terminal-line info">[INFO] Application démarrée</div><div class="terminal-line success">[OK] Aucune erreur</div>';
+        }
       });
     });
 
@@ -1109,16 +1369,35 @@
       const line = document.createElement('div');
       line.className = 'terminal-line ' + type;
       line.textContent = texte;
-      terminal.appendChild(line);
-      terminal.scrollTop = terminal.scrollHeight;
+      terminalContent.appendChild(line);
+      terminalContent.scrollTop = terminalContent.scrollHeight;
     }
 
+    // ===== EXTRACTION CODE =====
     function extraireCode(text) {
-      const regex = /```(\w+)?\n([\s\S]*?)```/g;
+      // Format : ```html:index.html\n...\n``` ou ```html\n...\n```
+      const regex = /```(\w+)(?::([^\n]+))?\n([\s\S]*?)```/g;
       const blocs = [];
       let match;
       while ((match = regex.exec(text)) !== null) {
-        blocs.push({ langage: match[1] || 'code', contenu: match[2].trim() });
+        const langage = match[1] || 'code';
+        const nomFichier = match[2] || null;
+        const contenu = match[3].trim();
+        
+        // Si pas de nom, on en génère un
+        let nom = nomFichier;
+        if (!nom) {
+          const ext = langage === 'html' ? 'html' : 
+                      langage === 'javascript' || langage === 'js' ? 'js' : 
+                      langage === 'css' ? 'css' : 
+                      langage === 'json' ? 'json' : 
+                      langage === 'python' ? 'py' :
+                      langage === 'kotlin' ? 'kt' :
+                      langage === 'typescript' || langage === 'ts' ? 'ts' : 'txt';
+          nom = `fichier${blocs.length + 1}.${ext}`;
+        }
+        
+        blocs.push({ langage, nom, contenu });
       }
       return blocs;
     }
@@ -1127,15 +1406,27 @@
       return text.replace(/```[\s\S]*?```/g, '').trim();
     }
 
-    function afficherCode(blocs) {
-      if (!blocs || blocs.length === 0) return;
-      const bloc = blocs[0];
-      const lignes = bloc.contenu.split('\n');
-      codeTab.innerHTML = '<div class="code">' + 
-        lignes.map((ligne, i) => 
-          `<div class="code-line"><span class="line-num">${i + 1}</span><span>${escapeHtml(ligne)}</span></div>`
-        ).join('') + '</div>';
-      logTerminal('→ Code généré (' + lignes.length + ' lignes)', 'success');
+    function afficherFichiers(blocs) {
+      fichiers.length = 0;
+      fichiers.push(...blocs);
+      filesView.innerHTML = '';
+      
+      blocs.forEach((bloc) => {
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span class="file-name">${bloc.nom}</span>
+        `;
+        item.onclick = () => voirFichier(bloc.nom, bloc.contenu);
+        filesView.appendChild(item);
+      });
+      
+      retourFichiers();
+      logTerminal(`→ ${blocs.length} fichier(s) généré(s)`, 'success');
     }
 
     function afficherPreview(html) {
@@ -1143,6 +1434,39 @@
       previewContent.classList.add('active');
       browserUrl.textContent = 'kenny.app/preview';
       logTerminal('→ Aperçu mis à jour', 'success');
+    }
+
+    // ===== PREVIEW COMBINÉ (HTML + CSS + JS) =====
+    function construirePreview(blocs) {
+      let html = '';
+      let css = '';
+      let js = '';
+      
+      blocs.forEach(b => {
+        if (b.langage === 'html') html = b.contenu;
+        else if (b.langage === 'css') css = b.contenu;
+        else if (b.langage === 'javascript' || b.langage === 'js') js = b.contenu;
+      });
+      
+      if (!html) return null;
+      
+      // Injecter CSS dans le HTML
+      if (css) {
+        html = html.replace('</head>', `<style>${css}</style></head>`);
+        if (!html.includes('</head>')) {
+          html = `<style>${css}</style>` + html;
+        }
+      }
+      
+      // Injecter JS
+      if (js) {
+        html = html.replace('</body>', `<script>${js}<\/script></body>`);
+        if (!html.includes('</body>')) {
+          html += `<script>${js}<\/script>`;
+        }
+      }
+      
+      return html;
     }
 
     async function envoyerMessage() {
@@ -1153,6 +1477,7 @@
       chatInput.value = '';
       chatSend.disabled = true;
 
+      resetAgents();
       ajouterMessage(message, 'user');
       conversationHistory.push({ role: 'user', content: message });
       logTerminal('$ ' + message, 'info');
@@ -1168,15 +1493,21 @@
         const blocs = extraireCode(data.response);
         const texteChat = retirerCode(data.response);
         
+        if (blocs.length > 0) {
+          await animerAgents();
+        }
+        
         if (texteChat) {
           ajouterMessage(texteChat, 'ia');
           logTerminal('→ Réponse reçue', 'success');
         }
         
         if (blocs.length > 0) {
-          afficherCode(blocs);
-          const htmlBloc = blocs.find(b => b.langage === 'html');
-          if (htmlBloc) afficherPreview(htmlBloc.contenu);
+          afficherFichiers(blocs);
+          dernierCode = blocs[0].contenu;
+          
+          const preview = construirePreview(blocs);
+          if (preview) afficherPreview(preview);
         }
         
         if (data.response) {
@@ -1184,7 +1515,7 @@
         }
       } catch (error) {
         ajouterMessage('Erreur de connexion.', 'ia');
-        logTerminal('✗ Erreur', 'warn');
+        logTerminal('✗ Erreur', 'error');
       }
 
       isLoading = false;
