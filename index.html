@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
       --violet-300: #c4b5fd;
       --violet-500: #8b5cf6;
@@ -24,7 +23,6 @@
       --jaune: #ffbd2e;
       --transition: cubic-bezier(0.4, 0, 0.2, 1);
     }
-
     html, body {
       width: 100%;
       min-height: 100%;
@@ -34,7 +32,6 @@
       font-family: 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -45,8 +42,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
-    /* ===== HEADER ===== */
     header {
       position: sticky;
       top: 0;
@@ -62,28 +57,13 @@
       min-width: 1100px;
       height: 56px;
     }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
+    .logo { display: flex; align-items: center; gap: 8px; cursor: pointer; flex-shrink: 0; }
     .logo-svg {
       width: 32px;
       height: 32px;
       filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.6));
     }
-
-    nav {
-      display: flex;
-      gap: 2px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
+    nav { display: flex; gap: 2px; align-items: center; flex-shrink: 0; }
     nav a {
       color: var(--texte-dim);
       text-decoration: none;
@@ -93,15 +73,10 @@
       border-radius: 7px;
       transition: all 0.3s var(--transition);
       white-space: nowrap;
+      cursor: pointer;
     }
-
-    nav a:hover {
-      color: var(--texte);
-      background: rgba(139, 92, 246, 0.1);
-    }
-
+    nav a:hover { color: var(--texte); background: rgba(139, 92, 246, 0.1); }
     nav a.active { color: var(--violet-300); }
-
     .search-bar {
       flex: 1;
       max-width: 380px;
@@ -112,21 +87,8 @@
       background: rgba(139, 92, 246, 0.08);
       border: 1px solid var(--bordure);
       border-radius: 20px;
-      transition: all 0.3s var(--transition);
     }
-
-    .search-bar:focus-within {
-      border-color: var(--violet-500);
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-    }
-
-    .search-bar svg {
-      width: 14px;
-      height: 14px;
-      color: var(--texte-faint);
-      flex-shrink: 0;
-    }
-
+    .search-bar svg { width: 14px; height: 14px; color: var(--texte-faint); flex-shrink: 0; }
     .search-bar input {
       background: none;
       border: none;
@@ -136,83 +98,15 @@
       outline: none;
       width: 100%;
     }
-
     .search-bar input::placeholder { color: var(--texte-faint); }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .icon-btn {
-      position: relative;
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      background: rgba(139, 92, 246, 0.08);
-      border: 1px solid var(--bordure);
-      color: var(--texte-dim);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s var(--transition);
-    }
-
-    .icon-btn:hover {
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--texte);
-      border-color: var(--bordure-hover);
-    }
-
-    .icon-btn svg { width: 15px; height: 15px; }
-
-    .icon-btn .badge {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 7px;
-      height: 7px;
-      background: var(--rouge);
-      border-radius: 50%;
-      border: 2px solid var(--noir);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 95, 86, 0.7); }
-      50% { box-shadow: 0 0 0 5px rgba(255, 95, 86, 0); }
-    }
-
-    .avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.8rem;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.3s var(--transition);
-    }
-
-    .avatar:hover {
-      border-color: var(--violet-300);
-      box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
-    }
-
-    .btn-new-project {
+    .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .btn-header {
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 20px;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
       border: none;
@@ -221,16 +115,87 @@
       box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
       transition: all 0.3s var(--transition);
       white-space: nowrap;
+      font-family: inherit;
     }
-
-    .btn-new-project:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+    .btn-header:hover { transform: translateY(-1px); box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6); }
+    .btn-header.secondary {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--bordure);
+      box-shadow: none;
     }
-
-    .btn-new-project svg { width: 13px; height: 13px; }
-
-    /* ===== MAIN ===== */
+    .btn-header.secondary:hover { background: rgba(139, 92, 246, 0.2); border-color: var(--violet-500); }
+    .user-menu { position: relative; }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: 2px solid var(--violet-300);
+      transition: all 0.3s var(--transition);
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+    .avatar:hover { box-shadow: 0 0 20px rgba(139, 92, 246, 0.6); transform: scale(1.05); }
+    .user-dropdown {
+      position: absolute;
+      top: 48px;
+      right: 0;
+      min-width: 260px;
+      background: rgba(20, 8, 35, 0.98);
+      border: 1px solid var(--bordure-hover);
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      display: none;
+      z-index: 2000;
+    }
+    .user-dropdown.active { display: block; }
+    .user-info-header { display: flex; align-items: center; gap: 10px; padding: 10px; }
+    .avatar-large {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+    .user-details { display: flex; flex-direction: column; min-width: 0; }
+    .user-details strong { font-size: 0.8rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+    .dropdown-divider { height: 1px; background: var(--bordure); margin: 6px 0; }
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      background: none;
+      color: var(--texte-dim);
+      font-size: 0.82rem;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s var(--transition);
+      text-align: left;
+    }
+    .dropdown-item:hover { background: rgba(139, 92, 246, 0.15); color: var(--texte); }
+    .dropdown-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .dropdown-item.danger { color: var(--rouge); }
+    .dropdown-item.danger:hover { background: rgba(255, 95, 86, 0.15); }
     .main {
       position: relative;
       z-index: 1;
@@ -238,17 +203,9 @@
       grid-template-columns: 340px 1fr 340px;
       gap: 12px;
       padding: 12px;
-      height: calc(100vh - 56px);
+      height: calc(100vh - 56px - 80px);
       min-width: 1100px;
-      transition: grid-template-columns 0.3s var(--transition);
     }
-
-    .main.right-hidden {
-      grid-template-columns: 340px 1fr 0px;
-    }
-
-    .main.right-hidden .panel-right { display: none; }
-
     .panel {
       background: var(--panel);
       border: 1px solid var(--bordure);
@@ -258,13 +215,9 @@
       flex-direction: column;
       backdrop-filter: blur(20px);
       overflow: hidden;
-      transition: border-color 0.3s;
     }
-
-    /* ===== AGENTS NAV HORIZONTAL ===== */
     .agents-nav {
       display: flex;
-      flex-direction: row;
       gap: 6px;
       margin-bottom: 12px;
       padding-bottom: 10px;
@@ -273,9 +226,7 @@
       overflow-x: auto;
       scrollbar-width: none;
     }
-
     .agents-nav::-webkit-scrollbar { display: none; }
-
     .agent-item {
       display: flex;
       flex-direction: column;
@@ -285,32 +236,16 @@
       border-radius: 10px;
       font-size: 0.62rem;
       color: var(--texte-dim);
-      transition: all 0.3s var(--transition);
-      white-space: nowrap;
       min-width: 62px;
       text-align: center;
       flex-shrink: 0;
+      transition: all 0.3s var(--transition);
     }
-
     .agent-item .agent-icon { font-size: 0.95rem; }
-
-    .agent-item .agent-name {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 62px;
-      font-size: 0.6rem;
-    }
-
+    .agent-item .agent-name { font-size: 0.6rem; max-width: 62px; overflow: hidden; text-overflow: ellipsis; }
     .agent-item .agent-status { font-size: 0.75rem; }
-
-    .agent-item.active {
-      background: rgba(139, 92, 246, 0.15);
-      color: var(--texte);
-    }
-
+    .agent-item.active { background: rgba(139, 92, 246, 0.15); color: var(--texte); }
     .agent-item.done { color: var(--vert); }
-
     .agent-spinner {
       width: 12px;
       height: 12px;
@@ -319,10 +254,7 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ===== CHAT ===== */
     .chat-messages {
       flex: 1;
       display: flex;
@@ -332,21 +264,17 @@
       padding-right: 5px;
       min-height: 0;
     }
-
     .msg {
       display: flex;
       gap: 8px;
       align-items: flex-end;
       animation: msgApparait 0.3s var(--transition) both;
     }
-
     @keyframes msgApparait {
       from { opacity: 0; transform: translateY(5px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .msg.user { justify-content: flex-end; }
-
     .msg-avatar {
       width: 28px;
       height: 28px;
@@ -357,18 +285,15 @@
       flex-shrink: 0;
       font-size: 0.8rem;
     }
-
     .msg-avatar.ia {
       background: rgba(139, 92, 246, 0.15);
       border: 1px solid var(--violet-500);
       color: var(--violet-300);
     }
-
     .msg-avatar.user {
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
       color: white;
     }
-
     .msg-bubble {
       padding: 10px 14px;
       border-radius: 14px;
@@ -377,18 +302,15 @@
       max-width: 85%;
       word-wrap: break-word;
     }
-
     .msg.ia .msg-bubble {
       background: rgba(6, 3, 13, 0.5);
       border: 1px solid var(--bordure);
       border-bottom-left-radius: 4px;
     }
-
     .msg.user .msg-bubble {
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
       border-bottom-right-radius: 4px;
     }
-
     .chat-input {
       margin-top: 12px;
       display: flex;
@@ -396,7 +318,6 @@
       align-items: center;
       flex-shrink: 0;
     }
-
     .chat-input input {
       flex: 1;
       padding: 12px 14px;
@@ -409,10 +330,7 @@
       outline: none;
       min-width: 0;
     }
-
     .chat-input input::placeholder { color: var(--texte-faint); }
-    .chat-input input:focus { border-color: var(--violet-500); }
-
     .chat-input button {
       width: 42px;
       height: 42px;
@@ -426,11 +344,8 @@
       justify-content: center;
       flex-shrink: 0;
     }
-
     .chat-input button:disabled { opacity: 0.5; }
     .chat-input button svg { width: 18px; height: 18px; }
-
-    /* ===== PREVIEW ===== */
     .panel-header {
       display: flex;
       align-items: center;
@@ -440,7 +355,6 @@
       border-bottom: 1px solid var(--bordure);
       flex-shrink: 0;
     }
-
     .panel-title {
       font-size: 0.9rem;
       font-weight: 600;
@@ -448,9 +362,7 @@
       align-items: center;
       gap: 8px;
     }
-
     .panel-title svg { width: 15px; height: 15px; color: var(--violet-300); }
-
     .browser-bar {
       display: flex;
       align-items: center;
@@ -462,13 +374,11 @@
       border-bottom: none;
       flex-shrink: 0;
     }
-
     .browser-dots { display: flex; gap: 6px; }
     .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
     .browser-dots span:nth-child(1) { background: var(--rouge); }
     .browser-dots span:nth-child(2) { background: var(--jaune); }
     .browser-dots span:nth-child(3) { background: var(--vert); }
-
     .browser-url {
       flex: 1;
       background: rgba(139, 92, 246, 0.1);
@@ -479,29 +389,6 @@
       font-family: 'JetBrains Mono', monospace;
       text-align: center;
     }
-
-    .btn-toggle-right {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      background: rgba(139, 92, 246, 0.1);
-      border: 1px solid var(--bordure);
-      color: var(--texte-dim);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.3s var(--transition);
-    }
-
-    .btn-toggle-right:hover {
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--texte);
-    }
-
-    .btn-toggle-right svg { width: 14px; height: 14px; }
-
     .preview-content {
       flex: 1;
       background: rgba(6, 3, 13, 0.6);
@@ -513,13 +400,7 @@
       overflow: hidden;
       min-height: 0;
     }
-
-    .preview-empty {
-      text-align: center;
-      color: var(--texte-faint);
-      padding: 20px;
-    }
-
+    .preview-empty { text-align: center; color: var(--texte-faint); padding: 20px; }
     .preview-empty svg {
       width: 60px;
       height: 60px;
@@ -527,9 +408,7 @@
       opacity: 0.5;
       margin-bottom: 15px;
     }
-
     .preview-empty p { font-size: 0.83rem; }
-
     .preview-iframe {
       width: 100%;
       height: 100%;
@@ -537,11 +416,8 @@
       background: white;
       display: none;
     }
-
     .preview-content.active .preview-empty { display: none; }
     .preview-content.active .preview-iframe { display: block; }
-
-    /* ===== COLONNE DROITE ===== */
     .panel-right {
       padding: 0;
       display: flex;
@@ -550,7 +426,6 @@
       border: none;
       backdrop-filter: none;
     }
-
     .right-top {
       flex: 6;
       background: var(--panel);
@@ -563,7 +438,6 @@
       overflow: hidden;
       margin-bottom: 8px;
     }
-
     .right-bottom {
       flex: 4;
       background: var(--panel);
@@ -575,7 +449,6 @@
       backdrop-filter: blur(20px);
       overflow: hidden;
     }
-
     .right-header {
       display: flex;
       align-items: center;
@@ -586,7 +459,6 @@
       flex-shrink: 0;
       gap: 6px;
     }
-
     .right-title {
       font-size: 0.8rem;
       font-weight: 600;
@@ -596,15 +468,7 @@
       flex: 1;
       min-width: 0;
     }
-
     .right-title svg { width: 14px; height: 14px; color: var(--violet-300); flex-shrink: 0; }
-
-    .right-title span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     .right-btn {
       width: 26px;
       height: 26px;
@@ -617,23 +481,10 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: all 0.3s var(--transition);
     }
-
-    .right-btn:hover {
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--texte);
-      border-color: var(--violet-500);
-    }
-
+    .right-btn:hover { background: rgba(139, 92, 246, 0.2); color: var(--texte); border-color: var(--violet-500); }
     .right-btn svg { width: 13px; height: 13px; }
-
-    .files-view {
-      flex: 1;
-      overflow-y: auto;
-      min-height: 0;
-    }
-
+    .files-view { flex: 1; overflow-y: auto; min-height: 0; }
     .file-item {
       display: flex;
       align-items: center;
@@ -643,38 +494,12 @@
       cursor: pointer;
       font-size: 0.76rem;
       color: var(--texte-dim);
-      transition: all 0.2s var(--transition);
       font-family: 'JetBrains Mono', monospace;
     }
-
-    .file-item:hover {
-      background: rgba(139, 92, 246, 0.1);
-      color: var(--texte);
-    }
-
-    .file-item svg {
-      width: 14px;
-      height: 14px;
-      color: var(--violet-300);
-      flex-shrink: 0;
-    }
-
-    .file-item .file-name {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .code-view {
-      flex: 1;
-      overflow: auto;
-      min-height: 0;
-      display: none;
-    }
-
+    .file-item:hover { background: rgba(139, 92, 246, 0.1); color: var(--texte); }
+    .file-item svg { width: 14px; height: 14px; color: var(--violet-300); flex-shrink: 0; }
+    .code-view { flex: 1; overflow: auto; min-height: 0; display: none; }
     .code-view.active { display: block; }
-
     .code-content {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
@@ -685,13 +510,7 @@
       white-space: pre-wrap;
       word-wrap: break-word;
     }
-
-    .code-line {
-      display: flex;
-      gap: 10px;
-      white-space: pre;
-    }
-
+    .code-line { display: flex; gap: 10px; white-space: pre; }
     .line-num {
       color: rgba(139, 92, 246, 0.35);
       min-width: 18px;
@@ -699,14 +518,7 @@
       user-select: none;
       flex-shrink: 0;
     }
-
-    .terminal-tabs {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 8px;
-      flex-shrink: 0;
-    }
-
+    .terminal-tabs { display: flex; gap: 3px; margin-bottom: 8px; flex-shrink: 0; }
     .terminal-tab {
       padding: 5px 10px;
       background: rgba(6, 3, 13, 0.4);
@@ -716,17 +528,12 @@
       color: var(--texte-dim);
       cursor: pointer;
       font-family: 'JetBrains Mono', monospace;
-      transition: all 0.3s var(--transition);
     }
-
-    .terminal-tab:hover { color: var(--texte); }
-
     .terminal-tab.active {
       background: rgba(139, 92, 246, 0.15);
       border-color: var(--bordure-hover);
       color: var(--texte);
     }
-
     .terminal-content {
       flex: 1;
       font-family: 'JetBrains Mono', monospace;
@@ -739,14 +546,11 @@
       overflow-y: auto;
       min-height: 0;
     }
-
     .terminal-line { white-space: pre-wrap; word-wrap: break-word; }
     .terminal-line.success { color: var(--vert); }
     .terminal-line.info { color: #82aaff; }
     .terminal-line.warn { color: var(--jaune); }
     .terminal-line.error { color: var(--rouge); }
-
-    /* ===== BARRE D'ACTIONS ===== */
     .actions-bar {
       position: relative;
       z-index: 1;
@@ -755,12 +559,9 @@
       justify-content: center;
       gap: 12px;
       padding: 18px;
-      max-width: 1600px;
-      margin: 0 auto;
       width: 100%;
       min-width: 1100px;
     }
-
     .action-btn {
       display: flex;
       align-items: center;
@@ -774,38 +575,23 @@
       background: rgba(139, 92, 246, 0.1);
       color: var(--texte);
       transition: all 0.3s var(--transition);
+      font-family: inherit;
     }
-
     .action-btn:hover {
       background: rgba(139, 92, 246, 0.2);
       border-color: var(--violet-500);
       transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
     }
-
-    .action-btn.primary {
-      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-      border: none;
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-    }
-
-    .action-btn.primary:hover {
-      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6);
-    }
-
+    .action-btn.primary { background: linear-gradient(135deg, var(--violet-500), var(--violet-700)); border: none; }
     .action-btn svg { width: 16px; height: 16px; }
-
-    /* ===== FOOTER ===== */
     footer {
       position: relative;
       z-index: 1;
       padding: 40px 30px 25px;
       background: rgba(6, 3, 13, 0.8);
       border-top: 1px solid var(--bordure);
-      margin-top: 20px;
       min-width: 1100px;
     }
-
     .footer-content {
       max-width: 1400px;
       margin: 0 auto;
@@ -813,9 +599,7 @@
       grid-template-columns: 2fr 1fr 1fr 1.5fr;
       gap: 40px;
     }
-
     .footer-brand .logo { margin-bottom: 12px; }
-
     .footer-brand p {
       color: var(--texte-dim);
       font-size: 0.82rem;
@@ -823,57 +607,11 @@
       max-width: 280px;
       margin-bottom: 15px;
     }
-
-    .footer-socials { display: flex; gap: 8px; }
-
-    .social-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: rgba(139, 92, 246, 0.08);
-      border: 1px solid var(--bordure);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--texte-dim);
-      text-decoration: none;
-      transition: all 0.3s var(--transition);
-    }
-
-    .social-btn:hover {
-      background: var(--violet-500);
-      color: white;
-      border-color: var(--violet-500);
-      transform: translateY(-2px);
-    }
-
-    .social-btn svg { width: 15px; height: 15px; }
-
-    .footer-col h4 {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--texte);
-      margin-bottom: 12px;
-    }
-
-    .footer-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .footer-col a {
-      color: var(--texte-dim);
-      text-decoration: none;
-      font-size: 0.82rem;
-      transition: color 0.3s;
-    }
-
+    .footer-col h4 { font-size: 0.82rem; font-weight: 600; color: var(--texte); margin-bottom: 12px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col a { color: var(--texte-dim); text-decoration: none; font-size: 0.82rem; transition: color 0.3s; }
     .footer-col a:hover { color: var(--violet-300); }
-
     .newsletter { display: flex; gap: 6px; margin-top: 10px; }
-
     .newsletter input {
       flex: 1;
       padding: 9px 12px;
@@ -885,9 +623,6 @@
       outline: none;
       min-width: 0;
     }
-
-    .newsletter input::placeholder { color: var(--texte-faint); }
-
     .newsletter button {
       padding: 9px 14px;
       background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
@@ -899,9 +634,7 @@
       align-items: center;
       justify-content: center;
     }
-
     .newsletter button svg { width: 14px; height: 14px; }
-
     .footer-bottom {
       max-width: 1400px;
       margin: 30px auto 0;
@@ -913,25 +646,260 @@
       font-size: 0.78rem;
       color: var(--texte-faint);
     }
-
-    .footer-bottom .links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-bottom a {
-      color: var(--texte-faint);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
+    .footer-bottom .links { display: flex; gap: 20px; }
+    .footer-bottom a { color: var(--texte-faint); text-decoration: none; transition: color 0.3s; }
     .footer-bottom a:hover { color: var(--violet-300); }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: rgba(20, 8, 35, 0.98);
+      border: 1px solid var(--bordure-hover);
+      border-radius: 20px;
+      padding: 35px;
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--bordure);
+      color: var(--texte-dim);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-family: inherit;
+    }
+    .modal-close:hover { background: rgba(255, 95, 86, 0.2); color: var(--rouge); }
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff, var(--violet-300));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .modal-subtitle { color: var(--texte-dim); font-size: 0.85rem; margin-bottom: 22px; }
+    .modal-error {
+      padding: 12px;
+      background: rgba(255, 95, 86, 0.1);
+      border: 1px solid rgba(255, 95, 86, 0.3);
+      border-radius: 10px;
+      color: var(--rouge);
+      font-size: 0.82rem;
+      margin-bottom: 15px;
+      display: none;
+    }
+    .modal-error.active { display: block; }
+    .photo-upload { display: flex; justify-content: center; margin-bottom: 20px; }
+    .photo-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.1);
+      border: 2px dashed var(--bordure-hover);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+    .photo-preview:hover { border-color: var(--violet-500); background-color: rgba(139, 92, 246, 0.2); }
+    .photo-preview svg { width: 28px; height: 28px; color: var(--violet-300); }
+    .photo-preview span { font-size: 0.65rem; color: var(--texte-dim); text-align: center; }
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--texte-dim);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(6, 3, 13, 0.6);
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      color: var(--texte);
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--violet-500); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      font-family: inherit;
+      transition: all 0.3s var(--transition);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    }
+    .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .modal-switch { text-align: center; margin-top: 18px; color: var(--texte-dim); font-size: 0.82rem; }
+    .modal-switch button {
+      background: none;
+      border: none;
+      color: var(--violet-300);
+      cursor: pointer;
+      font-weight: 600;
+      font-family: inherit;
+      font-size: 0.82rem;
+      text-decoration: underline;
+    }
 
+    /* ===== GALERIE D'IMAGES ===== */
+    .image-gallery {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 10px 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--violet-700) transparent;
+      width: 100%;
+    }
+    .image-gallery::-webkit-scrollbar { height: 6px; }
+    .image-gallery::-webkit-scrollbar-thumb {
+      background: var(--violet-700);
+      border-radius: 3px;
+    }
+    .image-card {
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--bordure);
+      background: rgba(6, 3, 13, 0.6);
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      position: relative;
+    }
+    .image-card:hover {
+      border-color: var(--violet-500);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+    }
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .image-card .image-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: white;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      cursor: zoom-out;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 95%;
+      max-height: 95%;
+      border-radius: 16px;
+      box-shadow: 0 20px 80px rgba(139, 92, 246, 0.6);
+      animation: zoomIn 0.3s var(--transition);
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid var(--bordure-hover);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--transition);
+    }
+    .lightbox-close:hover { background: var(--violet-500); transform: rotate(90deg); }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid var(--bordure-hover);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--transition);
+    }
+    .lightbox-nav:hover { background: var(--violet-500); }
+    .lightbox-nav.prev { left: 20px; }
+    .lightbox-nav.next { right: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="logo">
       <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
@@ -963,61 +931,42 @@
       <input type="text" placeholder="Search">
     </div>
 
-    <div class="header-right">
-      <button class="icon-btn" title="Notifications">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
-          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-        </svg>
-        <span class="badge"></span>
-      </button>
-      <div class="avatar">K</div>
-      <button class="btn-new-project">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <line x1="5" y1="12" x2="19" y2="12"/>
-        </svg>
-        New Project
-      </button>
+    <div class="header-right" id="authZone">
+      <div id="guestButtons">
+        <button class="btn-header secondary" onclick="ouvrirModale('login')">Connexion</button>
+        <button class="btn-header" onclick="ouvrirModale('register')">S'inscrire</button>
+      </div>
+      <div id="userZone" style="display:none;">
+        <div class="user-menu">
+          <div class="avatar" id="userAvatar" onclick="toggleUserMenu()">K</div>
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-info-header">
+              <div class="avatar-large" id="userAvatarLarge">K</div>
+              <div class="user-details">
+                <strong id="userEmail">email@exemple.com</strong>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" onclick="ouvrirProfil()">Mon profil</button>
+            <button class="dropdown-item" onclick="ouvrirProjets()">Mes projets</button>
+            <button class="dropdown-item" onclick="ouvrirParametres()">Paramètres</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item danger" onclick="deconnexion()">Déconnexion</button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- MAIN -->
   <div class="main" id="main">
-
-    <!-- CHAT + AGENTS -->
     <div class="panel">
       <div class="agents-nav">
-        <div class="agent-item" id="agent-1">
-          <span class="agent-icon">🧠</span>
-          <span class="agent-name">Orchestre</span>
-          <span class="agent-status">⏸️</span>
-        </div>
-        <div class="agent-item" id="agent-2">
-          <span class="agent-icon">🎨</span>
-          <span class="agent-name">Visuel</span>
-          <span class="agent-status">⏸️</span>
-        </div>
-        <div class="agent-item" id="agent-3">
-          <span class="agent-icon">💻</span>
-          <span class="agent-name">Codeur</span>
-          <span class="agent-status">⏸️</span>
-        </div>
-        <div class="agent-item" id="agent-4">
-          <span class="agent-icon">🧪</span>
-          <span class="agent-name">Testeur</span>
-          <span class="agent-status">⏸️</span>
-        </div>
-        <div class="agent-item" id="agent-5">
-          <span class="agent-icon">🛡️</span>
-          <span class="agent-name">Hacker</span>
-          <span class="agent-status">⏸️</span>
-        </div>
-        <div class="agent-item" id="agent-6">
-          <span class="agent-icon">🔍</span>
-          <span class="agent-name">Surveillant</span>
-          <span class="agent-status">⏸️</span>
-        </div>
+        <div class="agent-item" id="agent-1"><span class="agent-icon">🧠</span><span class="agent-name">Orchestre</span><span class="agent-status">⏸️</span></div>
+        <div class="agent-item" id="agent-2"><span class="agent-icon">🎨</span><span class="agent-name">Visuel</span><span class="agent-status">⏸️</span></div>
+        <div class="agent-item" id="agent-3"><span class="agent-icon">💻</span><span class="agent-name">Codeur</span><span class="agent-status">⏸️</span></div>
+        <div class="agent-item" id="agent-4"><span class="agent-icon">🧪</span><span class="agent-name">Testeur</span><span class="agent-status">⏸️</span></div>
+        <div class="agent-item" id="agent-5"><span class="agent-icon">🛡️</span><span class="agent-name">Hacker</span><span class="agent-status">⏸️</span></div>
+        <div class="agent-item" id="agent-6"><span class="agent-icon">🔍</span><span class="agent-name">Surveillant</span><span class="agent-status">⏸️</span></div>
       </div>
 
       <div class="chat-messages" id="chatMessages">
@@ -1037,7 +986,6 @@
       </div>
     </div>
 
-    <!-- PREVIEW -->
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
@@ -1050,15 +998,8 @@
         </div>
       </div>
       <div class="browser-bar">
-        <div class="browser-dots">
-          <span></span><span></span><span></span>
-        </div>
+        <div class="browser-dots"><span></span><span></span><span></span></div>
         <div class="browser-url" id="browserUrl">kenny.app/preview</div>
-        <button class="btn-toggle-right" onclick="toggleRight()" title="Masquer/Afficher le panneau droit">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="15 18 9 12 15 6"/>
-          </svg>
-        </button>
       </div>
       <div class="preview-content" id="previewContent">
         <div class="preview-empty">
@@ -1073,7 +1014,6 @@
       </div>
     </div>
 
-    <!-- COLONNE DROITE -->
     <div class="panel-right" id="panelRight">
       <div class="right-top">
         <div class="right-header">
@@ -1083,29 +1023,13 @@
             </svg>
             <span id="rightTitleText">Fichiers</span>
           </div>
-          <button class="right-btn" id="btnRetour" onclick="retourFichiers()" style="display:none;" title="Retour">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="19" y1="12" x2="5" y2="12"/>
-              <polyline points="12 19 5 12 12 5"/>
-            </svg>
-          </button>
-          <button class="right-btn" id="btnCopier" onclick="copierCode()" style="display:none;" title="Copier">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="9" y="9" width="13" height="13" rx="2"/>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-            </svg>
-          </button>
+          <button class="right-btn" id="btnRetour" onclick="retourFichiers()" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+          <button class="right-btn" id="btnCopier" onclick="copierCode()" style="display:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         </div>
-
         <div class="files-view" id="filesView">
-          <div style="text-align: center; padding: 20px; color: var(--texte-faint); font-size: 0.75rem;">
-            Aucun fichier pour l'instant
-          </div>
+          <div style="text-align: center; padding: 20px; color: var(--texte-faint); font-size: 0.75rem;">Aucun fichier pour l'instant</div>
         </div>
-
-        <div class="code-view" id="codeView">
-          <div class="code-content" id="codeContent"></div>
-        </div>
+        <div class="code-view" id="codeView"><div class="code-content" id="codeContent"></div></div>
       </div>
 
       <div class="right-bottom">
@@ -1118,59 +1042,31 @@
             <span>Console</span>
           </div>
         </div>
-
         <div class="terminal-tabs">
           <button class="terminal-tab active" data-term="terminal">Terminal</button>
           <button class="terminal-tab" data-term="pip">Pip</button>
           <button class="terminal-tab" data-term="logs">Logs</button>
         </div>
-
         <div class="terminal-content" id="terminalContent">
           <div class="terminal-line info">$ Kenny Terminal prêt</div>
-          <div class="terminal-line">En attente d'actions...</div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- BARRE D'ACTIONS -->
   <div class="actions-bar">
-    <button class="action-btn">
+    <button class="action-btn" onclick="nouveauProjet()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-        <polyline points="17 21 17 13 7 13 7 21"/>
-        <polyline points="7 3 7 8 15 8"/>
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
       </svg>
-      Save
+      Nouveau projet
     </button>
-    <button class="action-btn primary">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-      </svg>
-      Deploy
-    </button>
-    <button class="action-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 11l3 3L22 4"/>
-        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-      </svg>
-      Test
-    </button>
-    <button class="action-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="18" cy="5" r="3"/>
-        <circle cx="6" cy="12" r="3"/>
-        <circle cx="18" cy="19" r="3"/>
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-      </svg>
-      Share
-    </button>
+    <button class="action-btn"></button>
+    <button class="action-btn"></button>
+    <button class="action-btn"></button>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-content">
       <div class="footer-brand">
@@ -1183,185 +1079,378 @@
               </linearGradient>
             </defs>
             <rect x="5" y="5" width="90" height="90" rx="24" fill="url(#grad2)"/>
-            <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" 
-                  stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M30 25 L30 75 M30 50 L50 50 L70 25 M50 50 L70 75" stroke="#c4b5fd" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
           </svg>
-          <span class="logo-text">Logo</span>
         </div>
         <p>Crée ton application avec l'IA en quelques minutes. Sans code. Sans limite.</p>
-        <div class="footer-socials">
-          <a href="#" class="social-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-          </a>
-          <a href="#" class="social-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="2" width="20" height="20" rx="5"/>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-            </svg>
-          </a>
-          <a href="#" class="social-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
-            </svg>
-          </a>
-          <a href="#" class="social-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-          </a>
-        </div>
       </div>
-
-      <div class="footer-col">
-        <h4>Produit</h4>
-        <ul>
-          <li><a href="#">Fonctionnalités</a></li>
-          <li><a href="#">Templates</a></li>
-          <li><a href="#">Intégrations</a></li>
-          <li><a href="#">Prix</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Ressources</h4>
-        <ul>
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">Tutoriels</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Support</a></li>
-        </ul>
-      </div>
-
+      <div class="footer-col"><h4>Produit</h4><ul><li><a href="#">Fonctionnalités</a></li><li><a href="#">Templates</a></li><li><a href="#">Prix</a></li></ul></div>
+      <div class="footer-col"><h4>Ressources</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">Tutoriels</a></li><li><a href="#">Support</a></li></ul></div>
       <div class="footer-col">
         <h4>Newsletter</h4>
-        <p style="color: var(--texte-dim); font-size: 0.8rem; line-height: 1.5; margin-bottom: 8px;">
-          Reçois les nouveautés chaque semaine.
-        </p>
         <div class="newsletter">
           <input type="email" placeholder="ton@email.com">
-          <button>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </button>
+          <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
         </div>
       </div>
     </div>
-
     <div class="footer-bottom">
       <p>Copyright © 2026, Kenny Inc.</p>
-      <div class="links">
-        <a href="#">Mentions légales</a>
-        <a href="#">CGU</a>
-        <a href="#">Confidentialité</a>
-      </div>
+      <div class="links"><a href="#">Mentions légales</a><a href="#">CGU</a><a href="#">Confidentialité</a></div>
     </div>
   </footer>
 
-  <script>
-    const API_URL = 'https://kenny-backend-lx76.onrender.com';
-    const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
-    const previewContent = document.getElementById('previewContent');
-    const previewIframe = document.getElementById('previewIframe');
-    const browserUrl = document.getElementById('browserUrl');
-    const filesView = document.getElementById('filesView');
-    const codeView = document.getElementById('codeView');
-    const codeContent = document.getElementById('codeContent');
-    const rightTitleText = document.getElementById('rightTitleText');
-    const btnRetour = document.getElementById('btnRetour');
-    const btnCopier = document.getElementById('btnCopier');
-    const terminalContent = document.getElementById('terminalContent');
-    let isLoading = false;
-    let dernierCode = '';
-    let codeActuel = '';
-    const conversationHistory = [];
-    const fichiers = [];
+  <!-- MODALE AUTH -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal-close" onclick="fermerModale()">✕</button>
+      <div id="registerStep">
+        <h2 class="modal-title">Créer un compte</h2>
+        <p class="modal-subtitle">Rejoins Kenny et crée tes apps en quelques minutes.</p>
+        <div class="modal-error" id="registerError"></div>
+        <div class="photo-upload">
+          <div class="photo-preview" id="photoPreview" onclick="document.getElementById('photoInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span>Choisir une photo</span>
+          </div>
+          <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="previewPhoto(event)">
+        </div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="regEmail" placeholder="ton@email.com"></div>
+        <div class="form-group"><label class="form-label">Mot de passe</label><input type="password" class="form-input" id="regPassword" placeholder="••••••••"></div>
+        <div class="form-group"><label class="form-label">Confirmer le mot de passe</label><input type="password" class="form-input" id="regConfirm" placeholder="••••••••"></div>
+        <button class="btn-submit" id="btnRegister" onclick="inscription()">Créer mon compte</button>
+        <div class="modal-switch">Déjà un compte ? <button onclick="ouvrirModale('login')">Se connecter</button></div>
+      </div>
+      <div id="loginStep" style="display: none;">
+        <h2 class="modal-title">Connexion</h2>
+        <p class="modal-subtitle">Content de te revoir !</p>
+        <div class="modal-error" id="loginError"></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="logEmail" placeholder="ton@email.com"></div>
+        <div class="form-group"><label class="form-label">Mot de passe</label><input type="password" class="form-input" id="logPassword" placeholder="••••••••"></div>
+        <button class="btn-submit" id="btnLogin" onclick="connexion()">Se connecter</button>
+        <div class="modal-switch">Pas de compte ? <button onclick="ouvrirModale('register')">S'inscrire</button></div>
+      </div>
+    </div>
+  </div>
 
-    // ===== AGENTS =====
-    const agents = [1, 2, 3, 4, 5, 6];
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="fermerLightbox(event)">
+    <button class="lightbox-close" onclick="fermerLightbox(event, true)">✕</button>
+    <button class="lightbox-nav prev" onclick="naviguerLightbox(-1, event)">‹</button>
+    <img src="" id="lightboxImage" alt="Image plein écran">
+    <button class="lightbox-nav next" onclick="naviguerLightbox(1, event)">›</button>
+  </div>
 
-    function resetAgents() {
-      agents.forEach(id => {
-        const el = document.getElementById('agent-' + id);
-        el.className = 'agent-item';
-        el.querySelector('.agent-status').innerHTML = '⏸️';
-      });
-    }
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      getDocs, 
+      query, 
+      where, 
+      deleteDoc, 
+      doc
+    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-    function setAgentActive(id) {
-      const el = document.getElementById('agent-' + id);
-      el.className = 'agent-item active';
-      el.querySelector('.agent-status').innerHTML = '<div class="agent-spinner"></div>';
-    }
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtoT20xyex5SGqx7171GedVR95L7RMzNQ",
+      authDomain: "kenny-app-5ce0c.firebaseapp.com",
+      projectId: "kenny-app-5ce0c",
+      storageBucket: "kenny-app-5ce0c.firebasestorage.app",
+      messagingSenderId: "64616879957",
+      appId: "1:64616879957:web:ebfe1ecdf818b423be01dc"
+    };
 
-    function setAgentDone(id) {
-      const el = document.getElementById('agent-' + id);
-      el.className = 'agent-item done';
-      el.querySelector('.agent-status').innerHTML = '✅';
-    }
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    async function animerAgents() {
-      for (let i = 1; i <= 6; i++) {
-        setAgentActive(i);
-        await new Promise(r => setTimeout(r, 700 + Math.random() * 700));
-        setAgentDone(i);
+    let currentUser = null;
+    let photoData = null;
+    let currentProjectId = null;
+    let galerieImages = [];
+    let imageActiveIndex = 0;
+
+    // AUTH
+    window.ouvrirModale = function(type) {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.getElementById('registerError').classList.remove('active');
+      document.getElementById('loginError').classList.remove('active');
+      if (type === 'login') {
+        document.getElementById('registerStep').style.display = 'none';
+        document.getElementById('loginStep').style.display = 'block';
+      } else {
+        document.getElementById('registerStep').style.display = 'block';
+        document.getElementById('loginStep').style.display = 'none';
+      }
+    };
+
+    window.fermerModale = function() {
+      document.getElementById('modalOverlay').classList.remove('active');
+    };
+
+    window.previewPhoto = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const SIZE = 64;
+          canvas.width = SIZE;
+          canvas.height = SIZE;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, SIZE, SIZE);
+          photoData = canvas.toDataURL('image/jpeg', 0.2);
+          if (photoData.length > 2000) photoData = canvas.toDataURL('image/jpeg', 0.1);
+          const preview = document.getElementById('photoPreview');
+          preview.style.backgroundImage = `url(${photoData})`;
+          preview.innerHTML = '';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.inscription = async function() {
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regConfirm').value;
+      const errorEl = document.getElementById('registerError');
+      const btn = document.getElementById('btnRegister');
+
+      errorEl.classList.remove('active');
+      if (!email || !password || !confirm) { errorEl.textContent = 'Remplis tous les champs'; errorEl.classList.add('active'); return; }
+      if (password.length < 6) { errorEl.textContent = 'Mot de passe trop court'; errorEl.classList.add('active'); return; }
+      if (password !== confirm) { errorEl.textContent = 'Les mots de passe ne correspondent pas'; errorEl.classList.add('active'); return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Création...';
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        if (photoData) {
+          try { await updateProfile(user, { photoURL: photoData }); } catch (e) {}
+        }
+        await addDoc(collection(db, 'users'), {
+          uid: user.uid,
+          email: user.email,
+          photo: photoData || null,
+          created_at: new Date().toISOString()
+        });
+        fermerModale();
+      } catch (error) {
+        let msg = error.message;
+        if (error.code === 'auth/email-already-in-use') msg = 'Cet email est déjà utilisé';
+        if (error.code === 'auth/invalid-email') msg = 'Email invalide';
+        errorEl.textContent = msg;
+        errorEl.classList.add('active');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Créer mon compte';
+    };
+
+    window.connexion = async function() {
+      const email = document.getElementById('logEmail').value.trim();
+      const password = document.getElementById('logPassword').value;
+      const errorEl = document.getElementById('loginError');
+      const btn = document.getElementById('btnLogin');
+
+      errorEl.classList.remove('active');
+      if (!email || !password) { errorEl.textContent = 'Remplis tous les champs'; errorEl.classList.add('active'); return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Connexion...';
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        fermerModale();
+      } catch (error) {
+        errorEl.textContent = 'Email ou mot de passe incorrect';
+        errorEl.classList.add('active');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Se connecter';
+    };
+
+    window.deconnexion = async function() {
+      await signOut(auth);
+      document.getElementById('userDropdown').classList.remove('active');
+    };
+
+    window.toggleUserMenu = function() {
+      document.getElementById('userDropdown').classList.toggle('active');
+    };
+
+    document.addEventListener('click', function(e) {
+      const menu = document.querySelector('.user-menu');
+      if (menu && !menu.contains(e.target)) {
+        document.getElementById('userDropdown').classList.remove('active');
+      }
+    });
+
+    window.ouvrirProfil = function() { alert('Profil - à venir'); };
+    window.ouvrirParametres = function() { alert('Paramètres - à venir'); };
+
+    // PROJETS
+    window.ouvrirProjets = function() {
+      document.getElementById('userDropdown').classList.remove('active');
+      chargerProjets();
+    };
+
+    async function chargerProjets() {
+      if (!currentUser) return;
+      const filesView = document.getElementById('filesView');
+      filesView.innerHTML = '<div style="text-align:center;padding:20px;color:var(--texte-faint);font-size:0.75rem;">Chargement...</div>';
+      try {
+        const q = query(collection(db, 'projects'), where('user_id', '==', currentUser.uid));
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) {
+          filesView.innerHTML = '<div style="text-align:center;padding:20px;color:var(--texte-faint);font-size:0.75rem;">Aucun projet</div>';
+          return;
+        }
+        filesView.innerHTML = '';
+        snapshot.forEach(docSnap => {
+          const project = docSnap.data();
+          const item = document.createElement('div');
+          item.className = 'file-item';
+          item.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span style="flex:1;">${escapeHtml(project.name)}</span>
+            <button style="background:none;border:none;color:var(--rouge);cursor:pointer;font-size:0.8rem;" onclick="event.stopPropagation(); supprimerProjet('${docSnap.id}')">✕</button>
+          `;
+          item.onclick = () => chargerProjet(docSnap.id, project);
+          filesView.appendChild(item);
+        });
+      } catch (error) {
+        filesView.innerHTML = '<div style="text-align:center;padding:20px;color:var(--rouge);font-size:0.75rem;">Erreur</div>';
       }
     }
 
-    // ===== TOGGLE =====
-    function toggleRight() {
-      document.getElementById('main').classList.toggle('right-hidden');
+    window.nouveauProjet = async function() {
+      if (!currentUser) { ouvrirModale('register'); return; }
+      const name = prompt('Nom du projet :');
+      if (!name) return;
+      try {
+        await addDoc(collection(db, 'projects'), {
+          user_id: currentUser.uid,
+          name: name,
+          code: '',
+          created_at: new Date().toISOString()
+        });
+        document.getElementById('chatMessages').innerHTML = `
+          <div class="msg ia">
+            <div class="msg-avatar ia">🤖</div>
+            <div class="msg-bubble">Nouveau projet "${escapeHtml(name)}". Décris ton app.</div>
+          </div>
+        `;
+        document.getElementById('previewContent').classList.remove('active');
+        galerieImages = [];
+        alert('Projet créé !');
+        chargerProjets();
+      } catch (error) {
+        alert('Erreur : ' + error.message);
+      }
+    };
+
+    window.supprimerProjet = async function(id) {
+      if (!confirm('Supprimer ce projet ?')) return;
+      try {
+        await deleteDoc(doc(db, 'projects', id));
+        chargerProjets();
+      } catch (error) { alert('Erreur : ' + error.message); }
+    };
+
+    window.chargerProjet = function(id, project) {
+      currentProjectId = id;
+      document.getElementById('chatMessages').innerHTML = `
+        <div class="msg ia">
+          <div class="msg-avatar ia">🤖</div>
+          <div class="msg-bubble">Projet "${escapeHtml(project.name)}" chargé.</div>
+        </div>
+      `;
+      if (project.code) {
+        try {
+          const fichiers = JSON.parse(project.code);
+          afficherFichiers(fichiers);
+          const html = fichiers.find(f => f.langage === 'html');
+          if (html) afficherPreview(html.contenu);
+        } catch(e) {}
+      }
+    };
+
+    // FICHIERS
+    window.retourFichiers = function() {
+      document.getElementById('rightTitleText').textContent = 'Fichiers';
+      document.getElementById('filesView').style.display = 'block';
+      document.getElementById('codeView').classList.remove('active');
+      document.getElementById('btnRetour').style.display = 'none';
+      document.getElementById('btnCopier').style.display = 'none';
+    };
+
+    window.copierCode = function() {
+      const code = document.getElementById('codeContent').innerText;
+      navigator.clipboard.writeText(code);
+      logTerminal('✓ Code copié', 'success');
+    };
+
+    function afficherFichiers(blocs) {
+      const filesView = document.getElementById('filesView');
+      filesView.innerHTML = '';
+      blocs.forEach((bloc) => {
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span>${bloc.nom}</span>
+        `;
+        item.onclick = () => voirFichier(bloc.nom, bloc.contenu);
+        filesView.appendChild(item);
+      });
+      retourFichiers();
     }
 
-    // ===== FICHIERS =====
     function voirFichier(nom, contenu) {
-      codeActuel = contenu;
-      rightTitleText.textContent = nom;
-      filesView.style.display = 'none';
-      codeView.classList.add('active');
-      btnRetour.style.display = 'flex';
-      btnCopier.style.display = 'flex';
-      
+      document.getElementById('rightTitleText').textContent = nom;
+      document.getElementById('filesView').style.display = 'none';
+      document.getElementById('codeView').classList.add('active');
+      document.getElementById('btnRetour').style.display = 'flex';
+      document.getElementById('btnCopier').style.display = 'flex';
       const lignes = contenu.split('\n');
-      codeContent.innerHTML = lignes.map((ligne, i) => 
+      document.getElementById('codeContent').innerHTML = lignes.map((ligne, i) => 
         `<div class="code-line"><span class="line-num">${i + 1}</span><span>${escapeHtml(ligne)}</span></div>`
       ).join('');
     }
 
-    function retourFichiers() {
-      rightTitleText.textContent = 'Fichiers';
-      filesView.style.display = 'block';
-      codeView.classList.remove('active');
-      btnRetour.style.display = 'none';
-      btnCopier.style.display = 'none';
-    }
-
-    function copierCode() {
-      navigator.clipboard.writeText(codeActuel).then(() => {
-        logTerminal('✓ Code copié', 'success');
-      });
-    }
-
-    // ===== TERMINAL =====
+    // TERMINAL
     document.querySelectorAll('.terminal-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.terminal-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const type = tab.dataset.term;
-        
-        if (type === 'terminal') {
-          terminalContent.innerHTML = '<div class="terminal-line info">$ Kenny Terminal prêt</div><div class="terminal-line">En attente d\'actions...</div>';
-        } else if (type === 'pip') {
-          terminalContent.innerHTML = '<div class="terminal-line info">$ pip install -r requirements.txt</div><div class="terminal-line success">✓ Toutes les dépendances sont installées</div>';
-        } else if (type === 'logs') {
-          terminalContent.innerHTML = '<div class="terminal-line info">[INFO] Application démarrée</div><div class="terminal-line success">[OK] Aucune erreur</div>';
-        }
+        const tc = document.getElementById('terminalContent');
+        if (type === 'terminal') tc.innerHTML = '<div class="terminal-line info">$ Kenny Terminal prêt</div>';
+        else if (type === 'pip') tc.innerHTML = '<div class="terminal-line info">$ pip install -r requirements.txt</div><div class="terminal-line success">✓ OK</div>';
+        else if (type === 'logs') tc.innerHTML = '<div class="terminal-line info">[INFO] Prêt</div>';
       });
     });
 
@@ -1369,13 +1458,17 @@
       const line = document.createElement('div');
       line.className = 'terminal-line ' + type;
       line.textContent = texte;
-      terminalContent.appendChild(line);
-      terminalContent.scrollTop = terminalContent.scrollHeight;
+      const tc = document.getElementById('terminalContent');
+      tc.appendChild(line);
+      tc.scrollTop = tc.scrollHeight;
     }
 
-    // ===== EXTRACTION CODE =====
+    // CHAT IA
+    const API_URL = 'https://kenny-backend-lx76.onrender.com';
+    const conversationHistory = [];
+    let isLoading = false;
+
     function extraireCode(text) {
-      // Format : ```html:index.html\n...\n``` ou ```html\n...\n```
       const regex = /```(\w+)(?::([^\n]+))?\n([\s\S]*?)```/g;
       const blocs = [];
       let match;
@@ -1383,20 +1476,14 @@
         const langage = match[1] || 'code';
         const nomFichier = match[2] || null;
         const contenu = match[3].trim();
-        
-        // Si pas de nom, on en génère un
         let nom = nomFichier;
         if (!nom) {
           const ext = langage === 'html' ? 'html' : 
                       langage === 'javascript' || langage === 'js' ? 'js' : 
                       langage === 'css' ? 'css' : 
-                      langage === 'json' ? 'json' : 
-                      langage === 'python' ? 'py' :
-                      langage === 'kotlin' ? 'kt' :
-                      langage === 'typescript' || langage === 'ts' ? 'ts' : 'txt';
+                      langage === 'json' ? 'json' : 'txt';
           nom = `fichier${blocs.length + 1}.${ext}`;
         }
-        
         blocs.push({ langage, nom, contenu });
       }
       return blocs;
@@ -1406,81 +1493,146 @@
       return text.replace(/```[\s\S]*?```/g, '').trim();
     }
 
-    function afficherFichiers(blocs) {
-      fichiers.length = 0;
-      fichiers.push(...blocs);
-      filesView.innerHTML = '';
-      
-      blocs.forEach((bloc) => {
-        const item = document.createElement('div');
-        item.className = 'file-item';
-        item.innerHTML = `
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-          </svg>
-          <span class="file-name">${bloc.nom}</span>
-        `;
-        item.onclick = () => voirFichier(bloc.nom, bloc.contenu);
-        filesView.appendChild(item);
-      });
-      
-      retourFichiers();
-      logTerminal(`→ ${blocs.length} fichier(s) généré(s)`, 'success');
-    }
-
-    function afficherPreview(html) {
-      previewIframe.srcdoc = html;
-      previewContent.classList.add('active');
-      browserUrl.textContent = 'kenny.app/preview';
-      logTerminal('→ Aperçu mis à jour', 'success');
-    }
-
-    // ===== PREVIEW COMBINÉ (HTML + CSS + JS) =====
     function construirePreview(blocs) {
-      let html = '';
-      let css = '';
-      let js = '';
-      
+      let html = '', css = '', js = '';
       blocs.forEach(b => {
         if (b.langage === 'html') html = b.contenu;
         else if (b.langage === 'css') css = b.contenu;
         else if (b.langage === 'javascript' || b.langage === 'js') js = b.contenu;
       });
-      
       if (!html) return null;
-      
-      // Injecter CSS dans le HTML
-      if (css) {
-        html = html.replace('</head>', `<style>${css}</style></head>`);
-        if (!html.includes('</head>')) {
-          html = `<style>${css}</style>` + html;
-        }
-      }
-      
-      // Injecter JS
-      if (js) {
-        html = html.replace('</body>', `<script>${js}<\/script></body>`);
-        if (!html.includes('</body>')) {
-          html += `<script>${js}<\/script>`;
-        }
-      }
-      
+      if (css) html = html.replace('</head>', `<style>${css}</style></head>`);
+      if (js) html = html.replace('</body>', `<script>${js}<\/script></body>`);
       return html;
     }
 
+    function afficherPreview(html) {
+      document.getElementById('previewIframe').srcdoc = html;
+      document.getElementById('previewContent').classList.add('active');
+      logTerminal('→ Aperçu mis à jour', 'success');
+    }
+
+    function ajouterMessage(texte, type) {
+      const msg = document.createElement('div');
+      msg.className = `msg ${type}`;
+      const avatar = type === 'ia' ? '🤖' : (currentUser?.email?.[0].toUpperCase() || 'K');
+      msg.innerHTML = `
+        <div class="msg-avatar ${type}">${avatar}</div>
+        <div class="msg-bubble">${escapeHtml(texte)}</div>
+      `;
+      document.getElementById('chatMessages').appendChild(msg);
+      document.getElementById('chatMessages').scrollTop = 99999;
+    }
+
+    function afficherTyping() {
+      const id = 'typing-' + Date.now();
+      const msg = document.createElement('div');
+      msg.className = 'msg ia';
+      msg.id = id;
+      msg.innerHTML = `
+        <div class="msg-avatar ia">🤖</div>
+        <div class="msg-bubble" style="display:flex;gap:4px;align-items:center;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite;"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite 0.2s;"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:#c4b5fd;animation:typing 1.4s infinite 0.4s;"></span>
+        </div>
+      `;
+      document.getElementById('chatMessages').appendChild(msg);
+      document.getElementById('chatMessages').scrollTop = 99999;
+      return id;
+    }
+
+    // GALERIE D'IMAGES
+    function ajouterImageAGalerie(imageUrl, label = 'Image générée') {
+      galerieImages.push({ url: imageUrl, label: label });
+      renderGalerie();
+    }
+
+    function renderGalerie() {
+      let galerieContainer = document.getElementById('galerieImages');
+      if (!galerieContainer) {
+        galerieContainer = document.createElement('div');
+        galerieContainer.id = 'galerieImages';
+        galerieContainer.className = 'image-gallery';
+        document.getElementById('chatMessages').appendChild(galerieContainer);
+      }
+      galerieContainer.innerHTML = '';
+      galerieImages.forEach((img, index) => {
+        const card = document.createElement('div');
+        card.className = 'image-card';
+        card.onclick = () => ouvrirLightbox(index);
+        card.innerHTML = `
+          <img src="${img.url}" alt="${escapeHtml(img.label)}">
+          <div class="image-label">${escapeHtml(img.label)}</div>
+        `;
+        galerieContainer.appendChild(card);
+      });
+      galerieContainer.scrollLeft = galerieContainer.scrollWidth;
+      document.getElementById('chatMessages').scrollTop = 99999;
+    }
+
+    function ajouterImage(imageUrl) {
+      ajouterImageAGalerie(imageUrl, 'Interface générée');
+      const msg = document.createElement('div');
+      msg.className = 'msg ia';
+      msg.innerHTML = `
+        <div class="msg-avatar ia">🎨</div>
+        <div class="msg-bubble" style="padding: 8px; max-width: 90%;">
+          <p style="font-size: 0.75rem; color: var(--texte-dim); margin-bottom: 6px;">Clique pour agrandir</p>
+          <img src="${imageUrl}" 
+               style="width: 100%; border-radius: 10px; display: block; cursor: zoom-in;" 
+               onclick="ouvrirLightbox(${galerieImages.length - 1})"
+               alt="Image générée">
+        </div>
+      `;
+      document.getElementById('chatMessages').appendChild(msg);
+      document.getElementById('chatMessages').scrollTop = 99999;
+    }
+
+    // LIGHTBOX
+    window.ouvrirLightbox = function(index) {
+      imageActiveIndex = index;
+      document.getElementById('lightboxImage').src = galerieImages[index].url;
+      document.getElementById('lightbox').classList.add('active');
+    };
+
+    window.fermerLightbox = function(event, force = false) {
+      if (force || event.target.id === 'lightbox') {
+        document.getElementById('lightbox').classList.remove('active');
+      }
+    };
+
+    window.naviguerLightbox = function(direction, event) {
+      event.stopPropagation();
+      imageActiveIndex += direction;
+      if (imageActiveIndex < 0) imageActiveIndex = galerieImages.length - 1;
+      if (imageActiveIndex >= galerieImages.length) imageActiveIndex = 0;
+      document.getElementById('lightboxImage').src = galerieImages[imageActiveIndex].url;
+    };
+
+    document.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('lightbox');
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') fermerLightbox(e, true);
+      if (e.key === 'ArrowLeft') naviguerLightbox(-1, e);
+      if (e.key === 'ArrowRight') naviguerLightbox(1, e);
+    });
+
+    // ENVOYER MESSAGE
     async function envoyerMessage() {
-      const message = chatInput.value.trim();
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
       if (!message || isLoading) return;
 
       isLoading = true;
-      chatInput.value = '';
-      chatSend.disabled = true;
+      input.value = '';
+      document.getElementById('chatSend').disabled = true;
 
-      resetAgents();
       ajouterMessage(message, 'user');
       conversationHistory.push({ role: 'user', content: message });
       logTerminal('$ ' + message, 'info');
+
+      const typingId = afficherTyping();
 
       try {
         const response = await fetch(`${API_URL}/api/chat`, {
@@ -1490,49 +1642,69 @@
         });
         
         const data = await response.json();
-        const blocs = extraireCode(data.response);
-        const texteChat = retirerCode(data.response);
+        document.getElementById(typingId)?.remove();
         
-        if (blocs.length > 0) {
-          await animerAgents();
-        }
+        const blocs = extraireCode(data.response || '');
+        const texteChat = retirerCode(data.response || '');
         
-        if (texteChat) {
-          ajouterMessage(texteChat, 'ia');
-          logTerminal('→ Réponse reçue', 'success');
+        if (texteChat) ajouterMessage(texteChat, 'ia');
+        
+        if (data.image_prompt) {
+          logTerminal('🎨 Génération image en cours...', 'info');
+          const placeholderId = 'img-placeholder-' + Date.now();
+          ajouterPlaceholderImage(placeholderId);
+          
+          fetch(`${API_URL}/api/image`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: data.image_prompt })
+          })
+          .then(res => res.json())
+          .then(imgData => {
+            document.getElementById(placeholderId)?.remove();
+            if (imgData.success) {
+              ajouterImage(imgData.image_url);
+              logTerminal('✅ Image affichée', 'success');
+            }
+          })
+          .catch(err => {
+            document.getElementById(placeholderId)?.remove();
+            logTerminal('❌ Erreur image', 'error');
+          });
         }
         
         if (blocs.length > 0) {
           afficherFichiers(blocs);
-          dernierCode = blocs[0].contenu;
-          
           const preview = construirePreview(blocs);
           if (preview) afficherPreview(preview);
         }
         
-        if (data.response) {
-          conversationHistory.push({ role: 'model', content: data.response });
-        }
+        if (data.response) conversationHistory.push({ role: 'model', content: data.response });
       } catch (error) {
+        document.getElementById(typingId)?.remove();
         ajouterMessage('Erreur de connexion.', 'ia');
-        logTerminal('✗ Erreur', 'error');
       }
 
       isLoading = false;
-      chatSend.disabled = false;
-      chatInput.focus();
+      document.getElementById('chatSend').disabled = false;
+      input.focus();
     }
 
-    function ajouterMessage(texte, type) {
+    function ajouterPlaceholderImage(id) {
       const msg = document.createElement('div');
-      msg.className = `msg ${type}`;
-      const avatar = type === 'ia' ? '🤖' : 'K';
+      msg.className = 'msg ia';
+      msg.id = id;
       msg.innerHTML = `
-        <div class="msg-avatar ${type}">${avatar}</div>
-        <div class="msg-bubble">${escapeHtml(texte)}</div>
+        <div class="msg-avatar ia">🎨</div>
+        <div class="msg-bubble" style="padding: 12px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--texte-dim);">
+            <div class="agent-spinner"></div>
+            Génération de l'image...
+          </div>
+        </div>
       `;
-      chatMessages.appendChild(msg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      document.getElementById('chatMessages').appendChild(msg);
+      document.getElementById('chatMessages').scrollTop = 99999;
     }
 
     function escapeHtml(text) {
@@ -1541,10 +1713,45 @@
       return div.innerHTML;
     }
 
-    chatSend.addEventListener('click', envoyerMessage);
-    chatInput.addEventListener('keypress', (e) => {
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+      const guestButtons = document.getElementById('guestButtons');
+      const userZone = document.getElementById('userZone');
+      if (user) {
+        guestButtons.style.display = 'none';
+        userZone.style.display = 'block';
+        const initial = user.email[0].toUpperCase();
+        document.getElementById('userEmail').textContent = user.email;
+        const avatar = document.getElementById('userAvatar');
+        const avatarLarge = document.getElementById('userAvatarLarge');
+        if (user.photoURL) {
+          avatar.style.backgroundImage = `url(${user.photoURL})`;
+          avatar.textContent = '';
+          avatarLarge.style.backgroundImage = `url(${user.photoURL})`;
+          avatarLarge.textContent = '';
+        } else {
+          avatar.textContent = initial;
+          avatarLarge.textContent = initial;
+        }
+      } else {
+        guestButtons.style.display = 'flex';
+        userZone.style.display = 'none';
+      }
+    });
+
+    document.getElementById('chatSend').addEventListener('click', envoyerMessage);
+    document.getElementById('chatInput').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') envoyerMessage();
     });
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes typing {
+        0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+        30% { transform: translateY(-6px); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 
 </body>
